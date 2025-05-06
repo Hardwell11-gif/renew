@@ -1,0 +1,207 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-size: 1.6rem;
+}
+
+.header{
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 5%;
+    background-color: black;
+    gap: 35rem;
+    width: 100%;
+    height: clamp(6rem,10vh, 10rem);
+    z-index: 1000;
+}
+
+.div1{
+    display: flex;
+    align-items: center;
+}	
+
+.marca{
+    font-family:'league spartan', verdana;
+    color: #6b8678;
+    font-size: 6rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.nav{
+    display: flex;
+    gap:6rem;
+}
+
+.div2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20rem;
+}
+
+.textonav{
+    color: white;
+    text-decoration: none;
+    font-size: clamp(1.8rem, 1vw, 2.5rem);
+    font-weight: 600;
+}
+
+.textonav:hover{
+    color: #6b8678;
+    transition: 0.5s;
+}
+
+.button{
+    background-color: white;
+    color: black;
+    border:solid white;
+    padding: .8rem 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: #6b8678;
+    border: solid #6b8678;
+    color: white;
+    transition: 0.5s;
+}
+
+.buttonnav{
+    text-decoration: none;
+    color: black;
+}
+
+.menu_button {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2.5rem;       
+    height: 1.875rem;     
+    background-color: #333;
+    border-radius: 0.3125rem; 
+    padding: 0.3125rem;       
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
+.menu_button span {
+    height: 0.1875rem;
+    width: 1.5625rem; 
+    background-color: white;
+    border-radius: 0.125rem;
+}
+
+.icono{
+    color: #6b8678;
+    width: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .header{
+        padding: 2rem;
+        justify-items: center;
+        gap: 2rem;
+    }
+
+    .marca{
+        font-size: 4rem;
+        letter-spacing: -0.5rem;
+    }
+
+    .div1{
+        gap: 5rem;
+    }
+
+    .nav{
+        gap: 1rem;
+    }
+
+    .menu_button {
+        display: flex;
+    }
+    
+    .div2 {
+        display: none;
+        flex-direction: column;
+        gap: 0.625rem;
+        background-color: #111;
+        padding: 0.625rem;
+    }
+    
+    .div2.active {
+        display: flex;
+      }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .header{
+        gap: 5rem;
+    }
+
+    .div2{
+        gap: 7rem;
+    }
+
+    .button{
+        padding: .2rem 1rem;
+    }
+
+    .marca{
+        letter-spacing: -0.3rem;
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .header{
+        gap: 5rem;
+    }
+
+    .div2{
+        gap: 10rem;
+    }
+
+    .button{
+        padding: .3rem 2rem;
+    }
+
+    .marca{
+        letter-spacing: -0.4rem;
+        font-size: 3.5rem;
+    }   
+}
+
+@media (min-width: 1440px) {
+    .header{
+        gap: 5rem;
+    }
+
+    .div2{
+        gap: 10rem;
+    }
+
+    .button{
+        padding: .3rem 2rem;
+    }
+
+    .marca{
+        letter-spacing: -0.5rem;
+        font-size: 5rem;
+    } 
+}
