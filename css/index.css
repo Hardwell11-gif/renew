@@ -191,10 +191,12 @@ a{
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    height: clamp(20rem, 20vh, 40rem);
 }
 
 .imageprenda{
-    width: clamp(30%, 40vw, 50%);
+    width: clamp(70%, 100%, 90%);
+    height: clamp(18rem, 20vh, 30rem);
 }
 
 .info_prenda{
@@ -219,7 +221,7 @@ a{
     border-radius: 1rem;
     border-color: var(--color-principal);
     padding: 1.5rem 3rem;
-    font-size: clamp(2rem,3vh,5rem);
+    font-size: clamp(2rem,2vh,5rem);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
@@ -233,6 +235,7 @@ a{
 .text_boton_agregar{
     padding: .5rem;
     color: black;
+    font-size: clamp(1.5rem, 2vh, 2.5rem);
 }
 
 @media (max-width: 768px) {
