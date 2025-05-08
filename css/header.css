@@ -118,6 +118,26 @@ body{
     width: 2.5rem;
 }
 
+.div3{
+    display: none;
+    flex-direction: row;
+    background-color: black;
+    padding-top: clamp(6rem,10vh, 10rem);
+}
+
+.nav2{
+    background-color: black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem 5%;
+    position: fixed;
+    z-index: 999;
+}
+
 @media (max-width: 768px) {
     .header{
         padding: 2rem;
@@ -134,25 +154,17 @@ body{
         gap: 5rem;
     }
 
-    .nav{
-        gap: 1rem;
+    .div3{
+        display: flex;
     }
 
-    .menu_button {
-        display: flex;
-    }
-    
-    .div2 {
+    .nav{
         display: none;
-        flex-direction: column;
-        gap: 0.625rem;
-        background-color: #111;
-        padding: 0.625rem;
+    }    
+
+    .button{
+        padding: 0;
     }
-    
-    .div2.active {
-        display: flex;
-      }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
