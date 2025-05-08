@@ -94,6 +94,10 @@ a{
     text-align: center;
 }
 
+.boton:hover{
+    font-size: clamp(2.5rem, 3.5vh, 5.5rem);
+}
+
 .boton1{
     color: white;
 }
@@ -115,6 +119,18 @@ a{
     height: 100%;
     object-fit: cover;
     display: block;
+    animation: fadeinup 1s ease-in-out;
+}
+
+@keyframes fadeinup {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .section2{
@@ -151,6 +167,13 @@ a{
     gap: 2rem;
     border-style: solid;
     border-radius: 1rem;
+}
+
+.categoria:hover{
+    background-color: var(--color-principal);
+    transform: scale(0.95);
+    transition: all 0.3s ease-in-out;
+    border-color: black;
 }
 
 .contenedor_categoria {
@@ -195,6 +218,11 @@ a{
     aspect-ratio: 0.9;
 }
 
+.prenda:hover{
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
 .imageprenda{
     width: clamp(70%, 100%, 90%);
     height: clamp(18rem, 20vh, 30rem);
@@ -211,7 +239,7 @@ a{
 .precio_prenda{
     display: flex;
     flex-direction: row;
-    gap: clamp(2rem, 2vw, 5rem);
+    gap: clamp(2rem, 2.2vw, 5rem);
     font-size: clamp(1.5rem, 1.5vw, 2rem);
     text-align: center;
     align-items: center;
@@ -230,7 +258,14 @@ a{
 .boton_agregar{
     padding: .5rem;
     border: none;
-    background-color: white;
+    background-color: transparent;
+}
+
+.boton_prenda:hover{
+    background-color: var(--color-principal);
+    transition: all 0.3s ease-in-out;
+    transform: scale(0.95);
+    border-color: black;
 }
 
 .text_boton_agregar{
