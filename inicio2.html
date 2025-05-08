@@ -15,13 +15,6 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById("nav").innerHTML = data;
-                });
-        </script>
-        <script>
-            fetch("header.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("nav").innerHTML = data;
                     const enlaces = document.querySelectorAll(".textonav");
                     const actual = window.location.pathname.split("/").pop();
         
