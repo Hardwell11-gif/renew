@@ -58,6 +58,10 @@ body{
     font-weight: 600;
 }
 
+.textonav.activo{
+    color: #6b8678;
+}
+
 .textonav:hover{
     color: #6b8678;
     transition: 0.5s;
