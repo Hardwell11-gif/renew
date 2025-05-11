@@ -18,7 +18,7 @@
                     <div class="div1_1">INICIAR SESION</div>
                     <div class="div1_2">Ingresa tus credenciales para acceder a tu cuenta</div>
                 </div>
-                <form class="form1" action="inicio2.html" method="get">
+                <form class="form1" id="loginform" method="get">
                     <div class="div2">
                         <div class="div2_1">
                             <label class="credenciales" for="email">Email</label>
@@ -34,10 +34,16 @@
                     </div>
                     <div class="div3">
                         <button class="botonIS" type="submit">Iniciar Sesión</button>
-                        <a class="credenciales" href="registrarse.html">Resgistrarse</a>
+                        <a class="credenciales" href="registrarse.html">Registrarse</a>
                     </div>
                 </form>
             </section>
         </div>
+        <script>
+            document.getElementById("loginform").addEventListener("submit", function(event) {event.preventDefault();
+                localStorage.setItem("isLoggedIn", "true");
+                window.location.href = "index.html";
+            });
+        </script>
     </body>
 </html>
