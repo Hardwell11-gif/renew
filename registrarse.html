@@ -18,7 +18,7 @@
                     <div class="div1_1">Crear cuenta</div>
                     <div class="div1_2">Regístrate para comprar, vender o alquilar ropa</div>
                 </div>
-                <form class="form1" action="inicio2.html" method="get">
+                <form class="form1" action="inicio2.html" method="get" id="Resgisterform">
                     <div class="div2">
                         <div class="div_nombres">
                             <div class="div2_2">
@@ -53,5 +53,11 @@
                 </form>
             </section>
         </div>
+        <script>
+            document.getElementById("Resgisterform").addEventListener("submit", function(event) {event.preventDefault();
+                localStorage.setItem("isLoggedIn", "true");
+                window.location.href = "index.html";
+            });
+        </script>
     </body>
 </html>
