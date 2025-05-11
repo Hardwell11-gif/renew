@@ -11,28 +11,7 @@
     <body>
         <section class="navbar">
             <div id="nav"></div>
-            <script>
-                fetch("header2.html")
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("nav").innerHTML = data;
-                    });
-            </script>
-            <script>
-                fetch("header.html")
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("nav").innerHTML = data;
-                        const enlaces = document.querySelectorAll(".textonav");
-                        const actual = window.location.pathname.split("/").pop();
-            
-                        enlaces.forEach(enlace => {
-                            if (enlace.getAttribute("href") === actual) {
-                                enlace.classList.add("activo");
-                            }
-                        });
-                    });
-            </script>
+            <script src="js/header.js"></script>
         </section>
     </body>
 </html>

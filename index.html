@@ -11,51 +11,7 @@
     <body>
         <section class="navbar">
             <div id="nav"></div>
-        <script>
-        fetch("header.html")
-            .then(response => response.text())
-            .then(data => {
-            document.getElementById("nav").innerHTML = data;
-
-            const isLoggedIn = localStorage.getItem("isLoggedIn");
-            const contenedorBotones = document.getElementById("botonesSesion");
-
-            if (contenedorBotones) {
-                contenedorBotones.innerHTML = "";
-
-                if (isLoggedIn === "true") {
-                const perfilBtn = document.createElement("button");
-                perfilBtn.textContent = "Mi perfil";
-                perfilBtn.className = "button";
-                perfilBtn.onclick = () => window.location.href = "perfil.html";
-                contenedorBotones.appendChild(perfilBtn);
-
-                const logoutBtn = document.createElement("button");
-                logoutBtn.textContent = "Cerrar sesión";
-                logoutBtn.className = "button";
-                logoutBtn.onclick = () => {
-                    localStorage.removeItem("isLoggedIn");
-                    location.reload();
-                };
-                contenedorBotones.appendChild(logoutBtn);
-                } else {
-                const loginBtn = document.createElement("button");
-                loginBtn.textContent = "Iniciar Sesión";
-                loginBtn.className = "button";
-                loginBtn.onclick = () => window.location.href = "iniciar_sesion.html";
-                contenedorBotones.appendChild(loginBtn);
-                }
-            }
-            
-            const enlaces = document.querySelectorAll(".textonav");
-            const actual = window.location.pathname.split("/").pop();
-            enlaces.forEach(enlace => {
-                if (enlace.getAttribute("href") === actual) {
-                enlace.classList.add("activo");
-                }
-            });
-            });
-        </script>
+        <script src="js/header.js"></script>
         </section>    
         <section class="section1">
             <div class="presentacion">
@@ -210,13 +166,7 @@
         </section>  
         <section class="footer">
             <div id="footer"></div>
-            <script>
-                fetch("footer.html")
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("footer").innerHTML = data;
-                    });
-            </script>
+            <script src="js/footer.js"></script>
         </section> 
     </body>
 </html>
