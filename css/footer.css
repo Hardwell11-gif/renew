@@ -25,6 +25,7 @@ ul{
     align-items: center;
     width: 100%;
     gap : 2rem;
+    position: relative;
 }
 
 .div2footer{
@@ -67,6 +68,10 @@ ul{
 }
 
 @media (max-width: 768px) {
+
+    .div1footer{
+        position: unset;
+    }
     .div2footer{
         flex-direction: column;
         gap: 3rem;

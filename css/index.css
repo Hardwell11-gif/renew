@@ -95,7 +95,7 @@ a{
 }
 
 .boton:hover{
-    font-size: clamp(2.5rem, 3.5vh, 5.5rem);
+    font-size: clamp(1.5rem, 2.5vh, 4.5rem);
 }
 
 .boton1{
@@ -291,6 +291,10 @@ a{
 
     .productos{
         grid-template-columns: repeat(1,1fr);
+    }
+
+    .botonesPresentacion{
+        flex-direction: column;
     }
 }
 
