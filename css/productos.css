@@ -38,7 +38,7 @@ a{
     font-size: clamp(1.5rem, 2rem, 2.5rem);
 }
 
-.categorias{
+.filtros{
     background-color: var(--color-principal);
     margin-top: clamp(6rem,10vh, 10rem);
     display: flex;
@@ -54,22 +54,28 @@ a{
     left: 0;
 }
 
-.subtitulo{
-    margin-top: 1rem;
-    margin-left: 1rem;
+.categorias{
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    width: 100%;
+    padding-top: 2rem;
     display: flex;
-    justify-content: flex-start;
-    width: 100%;  
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
-.lista_categorias{
-    width: 100%;
-    padding-left: 2rem;
+.grupo_filtros{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 2rem;
+}
+
+.apliar_filtros{
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    background-color: transparent;
 }
 
 .productos{
@@ -77,6 +83,7 @@ a{
     display: flex;
     width: 100%;
     height: 100%;
+    justify-content: center;
 }
 
 .lista_productos{
@@ -155,8 +162,23 @@ a{
 
 @media (max-width: 425px){
 
+    .section1{
+        flex-direction: column;
+    }
+
+    .filtros{
+        display: flex;
+        position: unset;
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+    }
+
     .categorias{
-        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 0;
+        margin-top: 0;
     }
 
     .lista_productos{
@@ -169,6 +191,10 @@ a{
 }
 
 @media (min-width:425px) and (max-width: 768px){
+
+    .section1{
+        flex-direction: column;
+    }
 
     .productos{
         padding-left: 0%;
@@ -186,15 +212,29 @@ a{
         flex-direction: column;
     }
 
-    .categorias
-    {
-        display: none;
+    .filtros{
+        display: flex;
+        position: unset;
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+    }
+
+    .categorias{
+        flex-direction: row;
+        width: 100%;
+        padding-top: 0;
+        margin-top: 0;
     }
 }
 
 @media (min-width: 768px) and (max-width: 1024px){
     .lista_productos{
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .categorias{
+        flex-direction: column;
     }
 }
 

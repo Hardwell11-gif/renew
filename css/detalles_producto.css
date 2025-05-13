@@ -1,0 +1,66 @@
+:root{
+    --color-principal: #6b8678;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-size: 1.6rem;
+}
+
+.ropa_seleccionada{
+ background-color:var(--color-principal);
+}
+
+.container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 5rem;
+    padding: 2rem 5%;
+}
+
+.separador_nav{   
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+.imagenprenda{
+    width: clamp(18rem,40vh,80rem);
+    height: clamp(10rem,30vh,70rem);
+}
+
+.Prenda{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}   
+
+.detalles{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 768px){
+
+    .container{
+        flex-direction: column;
+    }
+
+
+}

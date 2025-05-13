@@ -9,12 +9,22 @@
 }
 
 html{
-    font-size: 62.5%;
-    scroll-behavior:smooth;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
 }
 
 ul{
     list-style: none;
+}
+
+footer{
+    position: -ms-page-footer;
 }
 
 .div1footer{
