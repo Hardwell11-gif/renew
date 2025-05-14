@@ -19,58 +19,60 @@
                 <p>Completa el formulario a continuación. Tu artículo será revisado antes de publicarse.</p>
                 <form id="formProducto">
                     <div class="grupos">
-                        <label for="">Nombre del artìculo</label>
+                        <label for="nombre">Nombre del artículo</label>
                         <input type="text" id="nombre" required>
                     </div>
                     <div class="grupos">
-                        <label for="">Categoría</label>
-                        <select name="categoria" id="categoria">
+                        <label for="categoria">Categoría</label>
+                        <select name="categoria" id="categoria" required>
                             <option value="">Elegir una opción</option>
-                            <option value="">Ropa</option>
-                            <option value="">Accesorios</option>
-                            <option value="">Calzados</option>
-                            <option value="">Otros</option>
+                            <option value="ropa">Ropa</option>
+                            <option value="accesorios">Accesorios</option>
+                            <option value="calzados">Calzados</option>
+                            <option value="otros">Otros</option>
                         </select>
                     </div>
                     <div class="grupos">
-                        <label for="">Estado</label>
-                        <select name="estado" id="estado">
+                        <label for="estado">Estado</label>
+                        <select name="estado" id="estado" required>
                             <option value="">Elegir una opción</option>
-                            <option value="">Como nuevo</option>
-                            <option value="">Buen estado</option>
-                            <option value="">Usado</option>
+                            <option value="como_nuevo">Como nuevo</option>
+                            <option value="buen_estado">Buen estado</option>
+                            <option value="usado">Usado</option>
                         </select>
                     </div>
                     <div class="grupos">
-                        <label for="">Género</label>
-                        <select name="genero" id="genero">
+                        <label for="genero">Género</label>
+                        <select name="genero" id="genero" required>
                             <option value="">Elegir una opción</option>
-                            <option value="">Varon</option>
-                            <option value="">Mujer</option>
-                            <option value="">Unisex</option>
+                            <option value="varon">Varón</option>
+                            <option value="mujer">Mujer</option>
+                            <option value="unisex">Unisex</option>
                         </select>
-                    </div>    
+                    </div>
                     <div class="grupos">
-                        <label for="">Precio (PEN)</label>
+                        <label for="precio">Precio (PEN)</label>
                         <input type="number" id="precio" required>
-                    </div>       
-                    <div class="grupos">
-                        <label for="">descripcion del Producto</label>
-                        <input type="text" class="descripcion" required>
                     </div>
                     <div class="grupos">
-                        <label for="">Foto del producto</label>
-                        <input type="file" id="imagen" accept="img/*">
+                        <label for="descripcion">Descripción del Producto</label>
+                        <input type="text" id="descripcion" required>
+                    </div>
+                    <div class="grupos">
+                        <label for="imagen">Foto del producto</label>
+                        <input type="file" id="imagen" accept="image/*" required>
                     </div>
                     <button type="submit">Agregar prenda</button>
                 </form>
-            </div> 
+            </div>
         </section>
         <section class="footer">
             <div id="footer">
                 <script src="js/footer.js"></script>
             </div>
         </section>
-        <script src="js/alquilarform.js"></script> 
+        <!-- Agregar el script para validar sesión y enviar el formulario -->
+        <script src="js/sesion_iniciada_vender.js"></script>
+        <script src="js/nuevo_producto.js"></script>        
     </body>
 </html>
