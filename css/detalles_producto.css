@@ -65,6 +65,12 @@ body {
   display: block;
 }
 
+.imagen_producto:hover{
+  transition: ease all 0,5s;
+  background-color: var(--color-principal);
+  border-radius: 0rem 10rem 0rem 10rem;
+}
+
 .info_producto {
   flex: 1 1 50%;
   background-color: #f3fdf3;
@@ -111,6 +117,24 @@ span {
 .agregado{
   font-size: clamp(1.4rem, 2vw, 2rem);
   font-weight: 100;
+}
+
+button{
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background-color: #e1f5e1;
+}
+
+button:hover{
+  background-color: var(--color-principal);
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 600;
+  transition: ease all 0.5s;
 }
 
 @media (max-width: 768px) {
