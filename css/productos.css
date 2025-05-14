@@ -140,13 +140,21 @@ a{
     border-color: var(--color-principal);
     padding: 1.5rem 3rem;
     font-size: clamp(2rem,2vh,5rem);
+    font-weight: 400;
     cursor: pointer;
 }
 
+.boton_prenda:hover{
+    background-color: var(--color-principal);
+}
+
 .boton_agregar{
+    cursor: pointer;
+    font-weight: 600;
     padding: .5rem;
     border: none;
     background-color: transparent;
+
 }
 
 .imageprenda{
