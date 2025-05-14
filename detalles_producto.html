@@ -1,65 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Renew</title>
-        <meta name="description" content="Aplicación para la compra, venta y alquiler de ropa de segunda mano.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/detalles_producto.css">
-    </head>
-    <body>
-        <section class="navbar">
-            <div id="nav"></div>
-            <script src="js/header.js"></script>
-        </section>
-        <section class="producto_elegido">
-            <div class="contenedor">
-                <div class="contenedor_producto">
-                    <div class="detalles_producto">
-                        <div class="foto_producto">
-                            <img class="imagen_producto" src="img/terno varon.webp" alt="imagen_producto">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Renew - Detalles del Producto</title>
+    <meta name="description" content="Aplicación para la compra, venta y alquiler de ropa de segunda mano.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/detalles_producto.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <section class="navbar" id="navbar">
+        <div id="nav"></div>
+        <script src="js/header.js"></script>
+    </section>
+
+    <!-- Producto Seleccionado -->
+    <section class="producto_elegido" id="producto_elegido">
+        <div class="contenedor" id="contenedor">
+            <div class="contenedor_producto" id="contenedor_producto">
+                <div class="detalles_producto" id="detalles_producto">
+                    <!-- Imagen del producto -->
+                    <div class="foto_producto" id="foto_producto">
+                        <img class="imagen_producto" id="imagen_producto" src="" alt="Imagen del producto">
+                    </div>
+
+                    <!-- Información del producto -->
+                    <div class="info_producto" id="info_producto">
+                        <div class="nombre_precio" id="nombre_precio">
+                            <h2 id="nombre_producto"></h2> <!-- Nombre del producto -->
+                            <div class="precio" id="precio_producto"></div> <!-- Precio del producto -->
                         </div>
-                        <div class="info_producto">
-                            <div class="nombre_precio">
-                                <h2>Terno para varon</h2>
-                                <div class="precio">90 PEN</div>
+
+                        <!-- Datos adicionales -->
+                        <div class="datos_producto" id="datos_producto">
+                            <div class="dato">
+                                <span>Categoría</span>
+                                <span class="agregado" id="categoria_producto"></span> <!-- Aquí debe aparecer la categoría -->
                             </div>
-                            <div class="datos_producto">
-                                <div>
-                                    <span for="">Categoría</span>
-                                    <span></span>
-                                </div>
-                                <div>
-                                    <span for="">Estado</span>
-                                    <span></span>
-                                </div>
-                                <div>
-                                    <span for="">Talla</span>
-                                    <span></span>
-                                </div>
-                                <div>
-                                    <span for="">Género</span>
-                                    <span></span>
-                                </div>
+                            <div class="dato">
+                                <span>Estado</span>
+                                <span class="agregado" id="estado_producto"></span> <!-- Aquí debe aparecer el estado -->
                             </div>
-                            <div>
-                                <h3>Descripción</h3>
-                                <p></p>
-                            </div>
-                            <div>
-                                <span>Vendedor(a)</span>
-                                <div>Juan</div>
+                            <div class="dato">
+                                <span>Género</span>
+                                <span class="agregado" id="genero_producto"></span> <!-- Aquí debe aparecer el género -->
                             </div>
                         </div>
+
+                        <!-- Descripción -->
+                        <div id="descripcion_producto_div">
+                            <h3>Descripción</h3>
+                            <p id="descripcion_producto"></p> <!-- Aquí debe aparecer la descripción -->
+                        </div>
+
+                        <!-- Vendedor -->
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="footer">
-            <div id="footer">
-                <script src="js/footer.js"></script>
-            </div>
-        </section>
-    </body>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="footer" id="footer">
+        <div id="footer"></div>
+        <script src="js/footer.js"></script>
+    </section>
+    <script src="js/detalles_producto.js"></script>
+</body>
 </html>
