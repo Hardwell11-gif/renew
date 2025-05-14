@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Renew</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/perfil.css">
+    </head>
+    <body>
+        <section class="navbar">
+            <div id="nav"></div>
+            <script src="js/header.js"></script>
+        </section>
+        <section class="contenedor">
+            <div class="formularios">
+                <div class="formulario_perfil">
+                    <h3>Mi perfil</h3>
+                    <form class="form_perfil" id="formPerfil">
+                        <p>Datos personales</p>
+                        <div class="grupos">
+                            <label for="">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="grupos">
+                            <label for="">Correo electrónico</label>
+                            <input type="email" name="email_perfil" id="email">
+                        </div>
+                        <div class="grupos">
+                            <button type="submit" class="boton_perfil">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div> 
+                <div class="formulario_perfil">
+                    <h3>Cambiar Contraseña</h3>
+                    <form class="form_perfil" id="formPerfil">
+                        <div class="grupos">
+                            <label for="">Contraseña actual</label>
+                            <input type="password" id="Contraseña" name="Contraseña" required>
+                        </div>
+                        <div class="grupos">
+                            <label for="">Nueva contraseña</label>
+                            <input type="password" name="Contraseña" id="Contraseña">
+                        </div>
+                        <div class="grupos">
+                            <label for="">Confirmar nueva contraseña</label>
+                            <input type="password" name="Contraseña" id="Contraseña">
+                        </div>
+                        <div class="grupos">
+                            <button type="submit" class="boton_perfil">Cambiar contraseña</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section class="footer">
+            <div id="footer">
+                <script src="js/footer.js"></script>
+            </div>
+        </section>
+        <script src="js/alquilarform.js"></script> 
+    </body>
+</html>

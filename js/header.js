@@ -24,6 +24,25 @@ fetch("header.html")
             location.reload();
         };
         contenedorBotones.appendChild(logoutBtn);
+
+        const nav = document.querySelector(".nav");        
+        if (nav) {
+            const mensajesLink = document.createElement("a");
+            mensajesLink.href = "mensajes.html";
+            mensajesLink.textContent = "Mensajes";
+            mensajesLink.className = "textonav";
+            nav.appendChild(mensajesLink);
+        }
+
+        const nav2 = document.querySelector(".nav2");        
+        if (nav2) {
+            const mensajesLink2 = document.createElement("a");
+            mensajesLink2.href = "mensajes.html";
+            mensajesLink2.textContent = "Mensajes";
+            mensajesLink2.className = "textonav";
+            nav2.appendChild(mensajesLink2);
+        }
+
         } else {
         const loginBtn = document.createElement("button");
         loginBtn.textContent = "Iniciar Sesión";

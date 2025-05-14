@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Renew</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/vender.css">
+    </head>
+    <body>
+        <section class="navbar">
+            <div id="nav"></div>
+            <script src="js/header.js"></script>
+        </section>
+        <section class="contenedor">
+            <div class="formulario_producto">
+                <h3>Vender un artículo</h3>
+                <p>Completa el formulario a continuación. Tu artículo será revisado antes de publicarse.</p>
+                <form id="formProducto">
+                    <div class="grupos">
+                        <label for="">Nombre del artìculo</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                    <div class="grupos">
+                        <label for="">Categoría</label>
+                        <select name="categoria" id="categoria">
+                            <option value="">Elegir una opción</option>
+                            <option value="">Ropa</option>
+                            <option value="">Accesorios</option>
+                            <option value="">Calzados</option>
+                            <option value="">Otros</option>
+                        </select>
+                    </div>
+                    <div class="grupos">
+                        <label for="">Estado</label>
+                        <select name="estado" id="estado">
+                            <option value="">Elegir una opción</option>
+                            <option value="">Como nuevo</option>
+                            <option value="">Buen estado</option>
+                            <option value="">Usado</option>
+                        </select>
+                    </div>
+                    <div class="grupos">
+                        <label for="">Género</label>
+                        <select name="genero" id="genero">
+                            <option value="">Elegir una opción</option>
+                            <option value="">Varon</option>
+                            <option value="">Mujer</option>
+                            <option value="">Unisex</option>
+                        </select>
+                    </div>    
+                    <div class="grupos">
+                        <label for="">Precio (PEN)</label>
+                        <input type="number" id="precio" required>
+                    </div>       
+                    <div class="grupos">
+                        <label for="">descripcion del Producto</label>
+                        <input type="text" class="descripcion" required>
+                    </div>
+                    <div class="grupos">
+                        <label for="">Foto del producto</label>
+                        <input type="file" id="imagen" accept="img/*">
+                    </div>
+                    <button type="submit">Agregar prenda</button>
+                </form>
+            </div> 
+        </section>
+        <section class="footer">
+            <div id="footer">
+                <script src="js/footer.js"></script>
+            </div>
+        </section>
+        <script src="js/alquilarform.js"></script> 
+    </body>
+</html>
