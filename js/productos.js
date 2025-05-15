@@ -28,11 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span>${producto.genero}</span>
             </div>
         </div>
-        <div class="boton_prenda">
-            <button class="boton_agregar" data-index="${index}">
-                Lo quiero!
-            </button>
-        </div>
+        <button class="boton_agregar" data-index="${index}">
+            Lo quiero!
+        </button>
     `;
 
 

@@ -74,7 +74,7 @@ body {
 .info_producto {
   flex: 1 1 50%;
   background-color: #f3fdf3;
-  padding: 2rem;
+  padding: clamp(2rem,4rem,6rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -120,6 +120,7 @@ span {
 }
 
 button{
+  cursor: pointer;
   width: 100%;
   padding: 1rem;
   font-size: 1.4rem;

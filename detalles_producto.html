@@ -9,51 +9,40 @@
     <link rel="stylesheet" href="css/detalles_producto.css">
 </head>
 <body>
-    <!-- Navbar -->
     <section class="navbar" id="navbar">
         <div id="nav"></div>
         <script src="js/header.js"></script>
     </section>
-
-    <!-- Producto Seleccionado -->
     <section class="producto_elegido" id="producto_elegido">
         <div class="contenedor" id="contenedor">
             <div class="contenedor_producto" id="contenedor_producto">
                 <div class="detalles_producto" id="detalles_producto">
-                    <!-- Imagen del producto -->
                     <div class="foto_producto" id="foto_producto">
                         <img class="imagen_producto" id="imagen_producto" src="" alt="Imagen del producto">
                     </div>
-
-                    <!-- Información del producto -->
                     <div class="info_producto" id="info_producto">
                         <div class="nombre_precio" id="nombre_precio">
-                            <h2 id="nombre_producto"></h2> <!-- Nombre del producto -->
-                            <div class="precio" id="precio_producto"></div> <!-- Precio del producto -->
+                            <h2 id="nombre_producto"></h2> 
+                            <div class="precio" id="precio_producto"></div> 
                         </div>
-
-                        <!-- Datos adicionales -->
                         <div class="datos_producto" id="datos_producto">
                             <div class="dato">
                                 <span>Categoría</span>
-                                <span class="agregado" id="categoria_producto"></span> <!-- Aquí debe aparecer la categoría -->
+                                <span class="agregado" id="categoria_producto"></span>
                             </div>
                             <div class="dato">
                                 <span>Estado</span>
-                                <span class="agregado" id="estado_producto"></span> <!-- Aquí debe aparecer el estado -->
+                                <span class="agregado" id="estado_producto"></span>
                             </div>
                             <div class="dato">
                                 <span>Género</span>
-                                <span class="agregado" id="genero_producto"></span> <!-- Aquí debe aparecer el género -->
+                                <span class="agregado" id="genero_producto"></span>
                             </div>
                         </div>
-
-                        <!-- Descripción -->
                         <div id="descripcion_producto_div">
                             <h3>Descripción</h3>
-                            <p id="descripcion_producto"></p> <!-- Aquí debe aparecer la descripción -->
+                            <p id="descripcion_producto"></p>
                         </div>
-                                            <div>
                         <button type="submit" id="boton_comprar">
                             Conversar con el vendedor
                         </button>

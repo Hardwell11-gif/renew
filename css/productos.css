@@ -61,8 +61,17 @@ a{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items:left;
     gap: 1rem;
+}
+
+select{
+    cursor:pointer;
+    border-color: black;
+    border-style: solid;
+    border-radius: 1rem;
+    width: 90%;
+    padding: 1rem;
 }
 
 .grupo_filtros{
@@ -73,9 +82,19 @@ a{
     gap: 2rem;
 }
 
-.apliar_filtros{
+.aplicar_filtros{
+    cursor: pointer;
+    border-style: solid;
+    border-radius: 1rem;
+    width: 100%;
+    padding: 1rem;
     font-size: clamp(1.5rem, 2vw, 2rem);
-    background-color: transparent;
+    background-color: white;
+}
+
+.aplicar_filtros:hover{
+    color: white ;
+    background-color: black;
 }
 
 .productos{
@@ -134,27 +153,20 @@ a{
     align-items: center;
 }
 
-.boton_prenda{
+.boton_agregar{
     border: solid;
     border-radius: 1rem;
     border-color: var(--color-principal);
     padding: 1.5rem 3rem;
     font-size: clamp(2rem,2vh,5rem);
-    font-weight: 400;
+    font-weight: 200;
     cursor: pointer;
 }
 
-.boton_prenda:hover{
+.boton_agregar:hover{
+    border-color: black;
     background-color: var(--color-principal);
-}
-
-.boton_agregar{
-    cursor: pointer;
-    font-weight: 600;
-    padding: .5rem;
-    border: none;
-    background-color: transparent;
-
+    transition: ease all 0.3s;
 }
 
 .imageprenda{
@@ -175,21 +187,24 @@ a{
     }
 
     .filtros{
+        border-radius: 1rem;
+        padding: 2rem;
         display: flex;
         position: unset;
-        flex-direction: row;
+        flex-direction: column;
         width: 100%;
         align-items: center;
     }
 
     .categorias{
-        flex-direction: column;
+        flex-direction: row;
         width: 100%;
         padding-top: 0;
         margin-top: 0;
     }
 
     .lista_productos{
+        margin-top: 0;
         grid-template-columns: repeat(1, 1fr);
     }
 
@@ -213,6 +228,7 @@ a{
     }
     
     .lista_productos{
+        margin-top: 0;
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -221,6 +237,8 @@ a{
     }
 
     .filtros{
+        padding: 2rem;
+        border-radius: 1rem;
         display: flex;
         position: unset;
         flex-direction: row;
@@ -236,7 +254,7 @@ a{
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px){
+@media (min-width: 768px){
     .lista_productos{
         grid-template-columns: repeat(3, 1fr);
     }
@@ -244,6 +262,10 @@ a{
     .categorias{
         flex-direction: column;
     }
+    .aplicar_filtros{
+        width: 90%;
+    }
+
 }
 
 

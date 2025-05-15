@@ -39,7 +39,6 @@ body {
   border-radius: 1rem;
   width: 100%;
   max-width: 120rem;
-  min-width: 30rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -110,6 +109,18 @@ button:hover {
 
   .formulario_producto {
     padding: 2rem;
+  }
+
+  .grupos{
+    align-items: flex-start;
+  }
+
+  .formulario_perfil h3{
+    font-size: 2rem;
+  }
+
+  .formulario_perfil{
+    font-size: 1.5rem;
   }
 
   input,
