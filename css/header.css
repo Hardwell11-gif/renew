@@ -141,7 +141,7 @@ body{
 .div3{
     display: none;
     flex-direction: row;
-    background-color: black;
+    background-color: var(--color-secundario);
     padding-top: clamp(6rem,10vh, 10rem);
 }
 
