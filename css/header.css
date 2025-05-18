@@ -1,5 +1,6 @@
 :root{
     --color-principal: #6b8678;
+    --color-secundario: #e4e2dc;
 }
 
 *{
@@ -23,7 +24,7 @@ body{
     justify-content: space-between;
     align-items: center;
     padding: 2rem 5%;
-    background-color: black;
+    background-color: var(--color-secundario);
     gap: 35rem;
     width: 100%;
     height: clamp(6rem,10vh, 10rem);
@@ -56,7 +57,7 @@ body{
 }
 
 .textonav{
-    color: white;
+    color: black;
     text-decoration: none;
     font-size: clamp(1.5rem, 1.2vw, 2.5rem);
     font-weight: 600;
@@ -94,9 +95,9 @@ body{
 }
 
 .button{
-    background-color: white;
-    color: black;
-    border:solid white;
+    background-color: black;
+    color: var(--color-secundario);
+    border:solid black;
     padding: 0.5rem;
     font-size: clamp(1rem,1.5rem,2rem);
     font-weight: 600;
