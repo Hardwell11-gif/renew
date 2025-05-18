@@ -17,11 +17,13 @@ h1{
     font-size: clamp(4rem, 5vw, 10rem);
     font-weight: 600;
     color: white;
+    animation: fadeinup 1s ease-in-out;
 }
 
 h2{
     font-size: clamp(2rem, 2vw, 5rem);
     font-weight: 200;
+    animation: fadeinup 1s ease-in-out;
 }
 
 h3{
@@ -44,7 +46,7 @@ a{
 
 .section1{
     background-color: var(--color-principal);
-    height: 100vh;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -52,6 +54,8 @@ a{
     justify-content: center;
     align-items: center;
     padding: 2rem 5%;
+    padding-right: 0;
+    padding-bottom: 0;
 }
 
 .presentacion{
@@ -92,6 +96,20 @@ a{
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     text-align: center;
+    display: inline-block;
+    animation: bounce 1.5s;
+}
+
+@keyframes bounce{
+    0%,100%{
+        opacity: 1;
+        transform: translateX();
+    }
+
+    50%{
+        opacity: 0;
+        transform: translateX(-15px);
+    }
 }
 
 .boton:hover{
@@ -120,6 +138,7 @@ a{
     object-fit: cover;
     display: block;
     animation: fadeinup 1s ease-in-out;
+    border: blue;
 }
 
 @keyframes fadeinup {
@@ -167,13 +186,14 @@ a{
     gap: 2rem;
     border-style: solid;
     border-radius: 1rem;
+    transition: transform 0.3s;
 }
 
 .categoria:hover{
     background-color: var(--color-principal);
-    transform: scale(0.95);
     transition: all 0.3s ease-in-out;
     border-color: black;
+    transform: translateY(-15px);
 }
 
 .contenedor_categoria {
@@ -307,6 +327,11 @@ a{
    
     .productos{
         grid-template-columns: repeat(2,1fr);
+    }
+
+    .section1{
+        padding-right: 0;
+        padding-bottom: 0;
     }
 }
 

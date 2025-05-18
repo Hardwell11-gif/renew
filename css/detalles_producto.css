@@ -66,7 +66,7 @@ body {
 }
 
 .imagen_producto:hover{
-  transition: ease all 0,5s;
+transition: ease-in-out 0.5s;
   background-color: var(--color-principal);
   border-radius: 0rem 10rem 0rem 10rem;
 }
@@ -132,9 +132,6 @@ button{
 
 button:hover{
   background-color: var(--color-principal);
-  color: white;
-  font-size: 1.6rem;
-  font-weight: 600;
   transition: ease all 0.5s;
 }
 
