@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const nombreInput = document.getElementById("nombre");
+    const celularInput = document.getElementById("celular");
     const emailInput = document.getElementById("email");
     const formPerfil = document.getElementById("formPerfil");
     const formCambioPass = document.getElementById("formCambioPass");
@@ -8,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
     if (!currentUser) {
-        alert("No hay usuario logueado.");
+        alert("Por favor, inicia sesión o registrate.");
         window.location.href = "iniciar_sesion.html";
         return;
     }
@@ -19,26 +20,55 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    nombreInput.value = usuario.nombres;
+    nombreInput.value = usuario.nombres + " " + usuario.apellidos;
+    nombreInput.readOnly = true;
+    celularInput.value = usuario.celular;
     emailInput.value = usuario.email;
     emailInput.readOnly = true;
 
     formPerfil.addEventListener("submit", (e) => {
         e.preventDefault();
-        usuario.nombres = nombreInput.value;
-        localStorage.setItem("users", JSON.stringify(users));
 
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (!isLoggedIn) {
+            alert("Debes iniciar seesión para actualizar tu perfil.");
+            window.location.href = "index.html"
+            return;
+        }
+
+        const celular = celularInput.value.trim();
+        const celularRegex = /^9\d{8}$/;
+
+        if (!celularRegex.test(celular)) {
+            alert("Número de celular inválido. Debe tener 9 dígitos y comenzar con 9.");
+            window.location.reload();
+            return;
+        }
+
+        usuario.celular = celular;
+        usuario.nombres = nombreInput.value;
+
+        localStorage.setItem("users", JSON.stringify(users));
         localStorage.setItem("currentUser", JSON.stringify({
             id: usuario.id,
             nombres: usuario.nombres,
+            apellidos: usuario.apellidos,
             email: usuario.email
         }));
 
-        alert("Nombre actualizado correctamente.");
+        alert("Datos actualizados correctamente.");
+        window.location.href = "perfil.html";
     });
 
     formCambioPass.addEventListener("submit", (e) => {
         e.preventDefault();
+
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (!isLoggedIn) {
+            alert("Debes iniciar sesión para cambiar tu contraseña.");
+            window.location.href = "index.html"            
+            return;
+        }
 
         const actual = document.getElementById("actual_password").value;
         const nueva = document.getElementById("nueva_password").value;
@@ -58,5 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("users", JSON.stringify(users));
         alert("Contraseña actualizada correctamente.");
         formCambioPass.reset();
+        window.location.href = "perfil.html";
     });
 });

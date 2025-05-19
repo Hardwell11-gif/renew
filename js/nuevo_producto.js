@@ -16,6 +16,14 @@ formulario.addEventListener('submit', function (event) {
         return;
     }
 
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+        alert("No se encontró el usuario en sesión. Inicia sesión para publicar.");
+        return;
+    }
+
+    const nombreVendedor = `${currentUser.nombres} ${currentUser.apellidos || ''}`.trim();
+
     const reader = new FileReader();
 
     reader.onload = function () {
@@ -28,7 +36,8 @@ formulario.addEventListener('submit', function (event) {
             genero,
             precio,
             descripcion,
-            imagen: base64Image, // ahora es una cadena base64
+            imagen: base64Image, // Imagen en base64
+            vendedor: nombreVendedor // Nombre completo del vendedor
         };
 
         let productos = JSON.parse(localStorage.getItem('productos')) || [];
@@ -39,5 +48,5 @@ formulario.addEventListener('submit', function (event) {
         formulario.reset();
     };
 
-    reader.readAsDataURL(imagenFile); // convierte la imagen a base64
+    reader.readAsDataURL(imagenFile); // Convierte la imagen a base64
 });

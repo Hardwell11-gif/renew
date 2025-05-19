@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("currentUser", JSON.stringify({
       id: existingUser.id,
       nombres: existingUser.nombres,
+      apellidos: existingUser.apellidos,
       email: existingUser.email
     }));
 

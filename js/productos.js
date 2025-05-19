@@ -25,7 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="precio_prenda">
                 <span>${producto.estado}</span>
                 <span>${producto.categoria}</span>
-                <span>${producto.genero}</span>
+                <span>${producto.genero}</span>              
+            </div>   
+            <div class="vendedor">
+                <span>${producto.vendedor}</span>     
             </div>
         </div>
         <button class="boton_agregar" data-index="${index}">

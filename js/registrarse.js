@@ -9,12 +9,27 @@ document.addEventListener("DOMContentLoaded", () => {
       const nombres = document.getElementById("nombres").value.trim();
       const apellidos = document.getElementById("apellidos").value.trim();
       const email = document.getElementById("email").value.trim();
+      const celular = document.getElementById("celular").value.trim(); // NUEVO
       const password = document.getElementById("password").value.trim();
       const valida_password = document.getElementById("valida_password").value.trim();
 
       // Validaciones
-      if (!nombres || !apellidos || !email || !password || !valida_password) {
+      if (!nombres || !apellidos || !email || !celular || !password || !valida_password) {
         errorElement.textContent = "Todos los campos son obligatorios.";
+        return;
+      }
+
+      // Validación del dominio del correo
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@alum\.udep\.edu\.pe$/;
+      if (!emailRegex.test(email)) {
+        errorElement.textContent = "Debes usar un correo institucional (@alum.udep.edu.pe).";
+        return;
+      }
+
+      // Validación del celular peruano
+      const celularRegex = /^9\d{8}$/;
+      if (!celularRegex.test(celular)) {
+        errorElement.textContent = "Número de celular inválido. Debe tener 9 dígitos y empezar con 9.";
         return;
       }
 
@@ -36,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nombres,
         apellidos,
         email,
+        celular, // NUEVO
         password,
         creadoEl: new Date().toString(),
         productos: [],
@@ -48,11 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("currentUser", JSON.stringify({
         id: newUser.id,
         nombres: newUser.nombres,
+        apellidos: newUser.apellidos,
         email: newUser.email,
       }));
 
       window.location.href = "iniciar_sesion.html";
     });
   }
-  
 });

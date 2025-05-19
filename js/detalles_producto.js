@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('categoria_producto').textContent = producto.categoria || 'N/A';
     document.getElementById('estado_producto').textContent = producto.estado || 'N/A';
     document.getElementById('genero_producto').textContent = producto.genero || 'N/A';
+    document.getElementById('nombre_vendedor').textContent = producto.vendedor || 'N/A';
 
     document.getElementById('descripcion_producto').textContent = producto.descripcion || 'Sin descripción.';
 });

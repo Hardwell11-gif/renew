@@ -109,6 +109,12 @@ h2 {
   gap: 0.5rem;
 }
 
+div#descripcion_producto_div {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
 span {
   font-size: clamp(1.4rem, 2vw, 2rem);
   font-weight: 600;

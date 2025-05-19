@@ -1,5 +1,5 @@
 // Validar si el usuario ha iniciado sesión
-function validarSesion() {
+function validarSesion_vender() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');  // Verificamos si la sesión está activa
 
     if (isLoggedIn !== 'true') {  // Si no está logueado
@@ -10,6 +10,7 @@ function validarSesion() {
 
 // Llamar la función al cargar la página de venta
 document.addEventListener('DOMContentLoaded', () => {
-    validarSesion();
+    validarSesion_vender();
 });
+
 

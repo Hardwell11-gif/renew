@@ -38,6 +38,10 @@ a{
     font-size: clamp(1.5rem, 2rem, 2.5rem);
 }
 
+.vendedor{
+    display: none;
+}
+
 .filtros{
     background-color: var(--color-principal);
     margin-top: clamp(6rem,10vh, 10rem);
