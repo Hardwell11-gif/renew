@@ -19,13 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Validación del dominio del correo
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@alum\.udep\.edu\.pe$/;
-      if (!emailRegex.test(email)) {
-        errorElement.textContent = "Debes usar un correo institucional (@alum.udep.edu.pe).";
-        return;
-      }
-
       // Validación del celular peruano
       const celularRegex = /^9\d{8}$/;
       if (!celularRegex.test(celular)) {
