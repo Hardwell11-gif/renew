@@ -36,6 +36,16 @@ a{
   text-align: center;
 }
 
+a.a2{
+  font-size: clamp(1.5rem, 1.2vw, 2.5rem);
+  font-weight:300;
+}
+
+a.a2:hover{
+  color: var(--color-principal);
+  font-weight: 700;
+}
+
 .contenedor {
   display: flex;
   flex-direction:column;
