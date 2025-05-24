@@ -79,6 +79,7 @@ a.a2:hover{
   max-width: 120rem;
   min-width: 30rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: clamp(1rem,2rem,4rem);
 }
 
 .formulario_perfil h3 {
@@ -233,9 +234,8 @@ button:hover {
     font-size: 55%;
   }
 
-  .navperfil{
-    flex-direction: column;
-    gap: 2rem;
+  .formulario_perfil_nav{
+    display: none;
   }
 
   .formularios{

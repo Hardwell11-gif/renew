@@ -33,7 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Marcar como logueado
     localStorage.setItem("isLoggedIn", "true");
 
-    // Redirigir
-    window.location.href = "index.html";
+    // Obtener el parámetro 'redirect' de la URL
+    const params = new URLSearchParams(window.location.search);
+    const redirectURL = params.get('redirect');
+
+    // Redirigir a la URL original si existe, si no, al index
+    if (redirectURL) {
+      window.location.href = decodeURIComponent(redirectURL);
+    } else {
+      window.location.href = "index.html";
+    }
   });
 });

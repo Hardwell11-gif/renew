@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('No se encontró el producto seleccionado en localStorage.');
         return;
     }
-
-    // Asignar los valores a los elementos por ID
+    
     document.getElementById('imagen_producto').src = producto.imagen || '';
     document.getElementById('imagen_producto').alt = `Imagen de ${producto.nombre || 'producto'}`;
 
@@ -19,5 +18,32 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('nombre_vendedor').textContent = producto.vendedor || 'N/A';
 
     document.getElementById('descripcion_producto').textContent = producto.descripcion || 'Sin descripción.';
-});
 
+    const botonComprar = document.getElementById('boton_comprar');
+    botonComprar.addEventListener('click', () => {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (isLoggedIn !== 'true') {
+            alert('Por favor inicia sesión para continuar con la compra.');
+            const paginaActual = window.location.href;
+            window.location.href = `iniciar_sesion.html?redirect=${encodeURIComponent(paginaActual)}`;            
+            return;
+        }
+
+        if (!currentUser || !currentUser.nombres || !currentUser.apellidos) {
+            alert('No se encontró el usuario en sesión. Inicia sesión para continuar.');
+            window.location.href = `iniciar_sesion.html?redirect=${encodeURIComponent(paginaActual)}`;            
+            return;
+        }
+
+        const nombreCurrentUser = (currentUser.nombres + ' ' + currentUser.apellidos).trim().toLowerCase();
+        const nombreVendedor = (producto.vendedor || '').trim().toLowerCase();
+
+        if (nombreCurrentUser === nombreVendedor) {
+            window.location.href = 'perfil.html#vendo';
+        } else {
+            window.location.href = 'formato_compra.html';
+        }
+    });
+});

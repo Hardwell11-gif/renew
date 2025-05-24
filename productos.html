@@ -1,59 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Renew</title>
-        <meta name="theme-color" content="#6b8678">
-        <meta name="description" content="Aplicación para la compra, venta y alquiler de ropa de segunda mano.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/productos.css">
-    </head>
-    <body>
-        <section class="navbar">
-            <div id="nav"></div>
-            <script src="js/header.js"></script>
-        </section>
-        <section class="section1">
-            <div class="filtros">
-                <div class="categorias">
-                    <label for="">Categoría</label>
-                    <div class="grupo_filtros">
-                        <select name="" id="">
-                            <option value="">Todos</option>
-                            <option value="">ropa</option>
-                            <option value="">Accesorios</option>
-                            <option value="">Calzados</option>
-                            <option value="">Otros</option>                                
-                        </select>
-                    </div>
-                </div>
-                <div class="categorias">
-                    <label for="">Género</label>
-                    <div class="grupo_filtros">
-                        <select name="" id="">
-                            <option value="">Todos</option>
-                            <option value="">Hombre</option>
-                            <option value="">Mujer</option>
-                            <option value="">Unisex</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="aplicar_filtros">
-                    Filtrar
-                </button>
-            </div>
-            <div class="productos">
-                <div class="lista_productos">
-                    <div class="producto">
-                    </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Renew</title>
+    <meta name="theme-color" content="#6b8678">
+    <meta name="description" content="Aplicación para la compra, venta y alquiler de ropa de segunda mano.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/productos.css">
+</head>
+<body>
+    <section class="navbar">
+        <div id="nav"></div>
+        <script src="js/header.js"></script>
+    </section>
+
+    <section class="section1">
+        <div class="filtros">
+            <div class="categorias">
+                <label for="filtro-categoria">Categoría</label>
+                <div class="grupo_filtros">
+                    <select name="categoria" id="filtro-categoria">
+                        <option value="">Todos</option>
+                        <option value="Ropa">Ropa</option>
+                        <option value="Accesorios">Accesorios</option>
+                        <option value="Calzados">Calzados</option>
+                        <option value="Otros">Otros</option>                                
+                    </select>
                 </div>
             </div>
-        </section>
-        <section class="footer">
-            <div id="footer"></div>
-            <script src="js/footer.js"></script>
-        </section>
-        <script src="js/productos.js"></script>
-    </body>
+
+            <div class="categorias">
+                <label for="filtro-genero">Género</label>
+                <div class="grupo_filtros">
+                    <select name="genero" id="filtro-genero">
+                        <option value="">Todos</option>
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                        <option value="Unisex">Unisex</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="aplicar_filtros">
+                Filtrar
+            </button>
+        </div>
+
+        <div class="productos">
+            <div class="lista_productos">
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <div id="footer"></div>
+        <script src="js/footer.js"></script>
+    </section>
+
+    <script src="js/productos.js"></script>
+</body>
 </html>

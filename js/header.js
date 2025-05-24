@@ -21,8 +21,9 @@ fetch("header.html")
         logoutBtn.className = "button";
         logoutBtn.onclick = () => {
             localStorage.removeItem("isLoggedIn");
-            location.reload();
-            window.location.href="index.html";
+            localStorage.removeItem("currentUser");
+            localStorage.removeItem("productoSeleccionado");
+            location.replace("index.html");
         };
         contenedorBotones.appendChild(logoutBtn);
 
