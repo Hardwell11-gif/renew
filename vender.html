@@ -36,23 +36,23 @@
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" required>
                             <option value="">Elegir una opción</option>
-                            <option value="como_nuevo">Como nuevo</option>
-                            <option value="buen_estado">Buen estado</option>
-                            <option value="usado">Usado</option>
+                            <option value="Como nuevo">Como nuevo</option>
+                            <option value="Buen estado">Buen estado</option>
+                            <option value="Usado">Usado</option>
                         </select>
                     </div>
                     <div class="grupos">
                         <label for="genero">Género</label>
                         <select name="genero" id="genero" required>
                             <option value="">Elegir una opción</option>
-                            <option value="varon">Varón</option>
-                            <option value="mujer">Mujer</option>
-                            <option value="unisex">Unisex</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                            <option value="Unisex">Unisex</option>
                         </select>
                     </div>
                     <div class="grupos">
                         <label for="precio">Precio (PEN)</label>
-                        <input type="number" id="precio" required>
+                        <input type="number" id="precio" min="0" step="5" required>
                     </div>
                     <div class="grupos">
                         <label for="descripcion">Descripción del Producto (Procura poner la talla)</label>
@@ -71,7 +71,6 @@
                 <script src="js/footer.js"></script>
             </div>
         </section>
-        <!-- Agregar el script para validar sesión y enviar el formulario -->
         <script src="js/sesion_iniciada_vender.js"></script>
         <script src="js/nuevo_producto.js"></script>        
     </body>

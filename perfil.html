@@ -13,11 +13,17 @@
         <div id="nav"></div>
         <script src="js/header.js"></script>
     </section>
-
     <section class="contenedor">
         <div class="formularios">
             <div class="formulario_perfil">
-                <h3>Mi perfil</h3>
+                <nav class="navperfil">
+                    <a href="#miperfil">Datos personales</a>
+                    <a href="#contraseña">Cambiar Contraseña</a>
+                    <a href="#vendo">Productos que vendo</a>
+                </nav>
+            </div>            
+            <div class="formulario_perfil">
+                <h3 id="miperfil">Mi perfil</h3>
                 <form class="form_perfil" id="formPerfil">
                     <p>Datos personales</p>
                     <div class="grupos">
@@ -38,7 +44,7 @@
                 </form>
             </div>
             <div class="formulario_perfil">
-                <h3>Cambiar Contraseña</h3>
+                <h3 id="contraseña">Cambiar Contraseña</h3>
                 <form class="form_perfil" id="formCambioPass">
                     <div class="grupos">
                         <label for="actual_password">Contraseña actual</label>
@@ -58,7 +64,7 @@
                 </form>
             </div> 
             <div class="formulario_perfil">
-                <h3>Productos que vendo</h3>
+                <h3 id="vendo">Productos que vendo</h3>
                 <div id="contenido" class="productos">
                     <div class="lista_productos">
                         <div class="producto">

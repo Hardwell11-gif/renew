@@ -20,11 +20,20 @@ body {
   min-height: 100vh;
 }
 
+.navperfil{
+  width: 100%;
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+}
+
 a{
   text-decoration: none;
   color: black;
   cursor: pointer;
   font-size:clamp(2rem, 2vw, 4rem);
+  text-align: center;
 }
 
 .contenedor {
@@ -212,6 +221,11 @@ button:hover {
 @media (max-width: 768px) {
   html {
     font-size: 55%;
+  }
+
+  .navperfil{
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .formularios{

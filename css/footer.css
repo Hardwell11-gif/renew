@@ -1,5 +1,6 @@
 :root{
     --color-principal: #6b8678;
+    --color-secundario: #e4e2dc;
 }
 
 *{
@@ -69,6 +70,7 @@ footer{
 }
 
 .marca_footer{
+    color: var(--color-secundario);
     font-size: clamp(3rem, 3vw, 5rem);
     font-family:'league spartan', verdana;
     color:white;
