@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const nombreVendedor = (producto.vendedor || '').trim().toLowerCase();
 
         if (nombreCurrentUser === nombreVendedor) {
+            alert("Este producto lo vendes tú")
             window.location.href = 'perfil.html#vendo';
         } else {
             window.location.href = 'formato_compra.html';

@@ -52,6 +52,28 @@ document.addEventListener('DOMContentLoaded', function () {
     // Mostrar todos los productos al cargar
     mostrarProductos(productos);
 
+    // Leer categoría desde localStorage si existe
+    const categoriaGuardada = localStorage.getItem('categoriaFiltrada');
+    if (categoriaGuardada) {
+        filtroCategoria.value = categoriaGuardada;
+
+        const productosFiltrados = productos.filter(producto =>
+            producto.categoria === categoriaGuardada
+        );
+
+        if (productosFiltrados.length === 0) {
+            alert('No se encontraron productos con la categoría que elegiste.');
+            mostrarProductos(productos);
+        }else{
+            mostrarProductos(productosFiltrados);
+        }
+        // Limpia el filtro guardado para que no se aplique siempre
+        localStorage.removeItem('categoriaFiltrada');
+    } else {
+        // Si no hay filtro guardado, muestra todos
+        mostrarProductos(productos);
+    }
+
     // Evento para aplicar filtros
     botonFiltrar.addEventListener('click', () => {
         const categoriaSeleccionada = filtroCategoria.value;
@@ -65,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (productosFiltrados.length === 0) {
             alert('No se encontraron productos con el filtro que elegiste.');
-            mostrarProductos(productos); // Carga todos los productos
+            mostrarProductos(productos);
         } else {
             mostrarProductos(productosFiltrados);
         }

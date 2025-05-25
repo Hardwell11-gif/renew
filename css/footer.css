@@ -24,8 +24,9 @@ ul{
     list-style: none;
 }
 
-footer{
-    position: -ms-page-footer;
+.div_footer{
+    display: flex;
+    align-items: flex-end;
 }
 
 .div1footer{
