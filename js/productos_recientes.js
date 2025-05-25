@@ -17,7 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             </a>
             <div class="info_prenda">
-                <a href="#"><h3>${producto.nombre}</h3></a>
+                <a href="#">
+                    <h3>${producto.nombre}</h3>
+                </a>
                 <div class="precio_prenda">
                     <p>${producto.precio} PEN</p>
                 </div>
@@ -30,14 +32,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     <span>${producto.vendedor}</span>     
                 </div>
             </div>
-            <div class="boton_prenda">
-                <button class="boton_agregar">
-                    <a class="text_boton_agregar" href="#">Lo quiero!</a>
-                </button>
-            </div>
+            <button class="boton_agregar" data-index="${productos.indexOf(producto)}">
+                Lo quiero!
+            </button>
         `;
 
-        contenedor.prepend(productoDiv);
+        contenedor.appendChild(productoDiv);
     });
 
     const productosRenderizados = contenedor.querySelectorAll('.producto');
@@ -47,4 +47,17 @@ document.addEventListener('DOMContentLoaded', function () {
             contenedor.lastElementChild.remove();
         }
     }
+
+    // Evento de clic para "Lo quiero"
+    contenedor.addEventListener('click', function (e) {
+        const boton = e.target.closest('.boton_agregar');
+        if (boton) {
+            const index = boton.getAttribute('data-index');
+            if (index !== null) {
+                const productoSeleccionado = productos[index];
+                localStorage.setItem('productoSeleccionado', JSON.stringify(productoSeleccionado));
+                window.location.href = 'detalles_producto.html';
+            }
+        }
+    });
 });

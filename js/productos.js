@@ -10,11 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
         listaProductos.innerHTML = '';
 
         if (productosFiltrados.length === 0) {
-            listaProductos.innerHTML = '<p>No se encontraron productos.</p>';
+            listaProductos.innerHTML = '<p style="text-align: center;">No se encontraron productos.</p>';
+            listaProductos.style.height = '100vh';
             return;
         }
 
-        productosFiltrados.forEach((producto, index) => {
+        productosFiltrados.slice().reverse().forEach((producto, index) => {
             const productoDiv = document.createElement('div');
             productoDiv.classList.add('producto');
 
@@ -47,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             listaProductos.appendChild(productoDiv);
         });
+
+        listaProductos.style.height = '100%';
     }
 
     // Mostrar todos los productos al cargar
@@ -64,13 +67,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (productosFiltrados.length === 0) {
             alert('No se encontraron productos con la categoría que elegiste.');
             mostrarProductos(productos);
-        }else{
+        } else {
             mostrarProductos(productosFiltrados);
         }
-        // Limpia el filtro guardado para que no se aplique siempre
+
         localStorage.removeItem('categoriaFiltrada');
     } else {
-        // Si no hay filtro guardado, muestra todos
         mostrarProductos(productos);
     }
 
@@ -106,4 +108,3 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
