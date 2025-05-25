@@ -187,17 +187,19 @@
             <script src="js/footer.js"></script>
         </section> 
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
         const contenedor = document.querySelector('.productos');
         const productos = JSON.parse(localStorage.getItem('productos')) || [];
-
-        const productosRecientes = productos.slice(-3).reverse();
-
-        productosRecientes.forEach((producto) => {
+    
+        const maxTotal = 4;
+        const productosNuevos = productos.slice(-maxTotal).reverse(); // últimos nuevos
+    
+        // Insertar nuevos primero
+        productosNuevos.forEach(producto => {
             const productoDiv = document.createElement('div');
             productoDiv.classList.add('producto');
-            
+    
             productoDiv.innerHTML = `
                 <a href="#">
                     <div class="prenda">
@@ -227,6 +229,15 @@
     
             contenedor.prepend(productoDiv);
         });
+    
+        // Eliminar extras si hay más de 4
+        const productosRenderizados = contenedor.querySelectorAll('.producto');
+        if (productosRenderizados.length > maxTotal) {
+            const extras = productosRenderizados.length - maxTotal;
+            for (let i = 0; i < extras; i++) {
+                contenedor.lastElementChild.remove();
+            }
+        }
     });
     </script>
 
