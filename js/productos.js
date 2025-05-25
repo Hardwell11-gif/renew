@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // --- NUEVO: Mostrar footer si hay más de 15 productos ---
         const totalProductos = listaProductos.querySelectorAll('.producto').length;
         if (footer) {
-            if (totalProductos >=3) {
+            if (totalProductos >9) {
                 footer.style.display = 'block'; 
             } else {
                 footer.style.display = 'none';
