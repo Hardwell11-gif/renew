@@ -165,6 +165,7 @@ select{
     font-size: clamp(2rem,2vh,5rem);
     font-weight: 800;
     cursor: pointer;
+    background-color: #e1f5e1;
 }
 
 .boton_agregar:hover{
@@ -187,6 +188,7 @@ select{
     padding: .5rem;
     color: black;
     font-size: clamp(1.5rem, 2vh, 2.5rem);
+    font-weight: 800;
 }
 
 @media (max-width: 425px){
