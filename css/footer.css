@@ -48,7 +48,7 @@ ul{
     align-items: flex-start;
     justify-content: space-between;
     padding: 2rem 5%;
-    gap: clamp(2rem, 5vw, 10rem);
+    gap: 3rem;
 }
 
 .menu_footer{
