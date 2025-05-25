@@ -191,11 +191,13 @@
     document.addEventListener('DOMContentLoaded', function () {
         const contenedor = document.querySelector('.productos');
         const productos = JSON.parse(localStorage.getItem('productos')) || [];
-    
-        productos.forEach((producto) => {
+
+        const productosRecientes = productos.slice(-3).reverse();
+
+        productosRecientes.forEach((producto) => {
             const productoDiv = document.createElement('div');
             productoDiv.classList.add('producto');
-    
+            
             productoDiv.innerHTML = `
                 <a href="#">
                     <div class="prenda">
