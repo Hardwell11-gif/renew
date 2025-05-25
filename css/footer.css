@@ -1,6 +1,5 @@
 :root{
     --color-principal: #6b8678;
-    --color-secundario: #e4e2dc;
 }
 
 *{
@@ -10,23 +9,12 @@
 }
 
 html{
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.content {
-  flex: 1;
+    font-size: 62.5%;
+    scroll-behavior:smooth;
 }
 
 ul{
     list-style: none;
-}
-
-.div_footer{
-    display: flex;
-    align-items: flex-end;
 }
 
 .div1footer{
@@ -40,7 +28,7 @@ ul{
     position: relative;
 }
 
-.div2footer {
+.div2footer{
     width: 100%;
     height: 100%;
     display: flex;
@@ -71,7 +59,6 @@ ul{
 }
 
 .marca_footer{
-    color: var(--color-secundario);
     font-size: clamp(3rem, 3vw, 5rem);
     font-family:'league spartan', verdana;
     color:white;
