@@ -1,189 +1,75 @@
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Renew</title>
-        <meta name="description" content="Aplicación para la compra, venta y alquiler de ropa de segunda mano.">
-        <meta name="theme-color" content="#6b8678">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/index.css">
-    </head>
-    <body>
-        <section class="navbar">
-            <div id="nav"></div>
-        <script src="js/header.js"></script>
-        </section>    
-        <section class="section1">
-            <div class="presentacion">
-                <div class="presentacionTexto">
-                    <h1>Moda sostenible al alcance de todos</h1>
-                    <h2>Compra, vende y alquila ropa de segunda mano de calidad. Dale una segunda oportunidad a la moda y cuida el planeta.</h2>
-                </div>   
-                <div class="botonesPresentacion">
-                    <div class="boton">
-                        <a href="productos.html" class="boton1">Ver productos</a>    
-                    </div>
-                   <div class="boton">
-                        <a href="vender.html" class="boton1">Vender mi ropa</a>
-                   </div>     
-                </div>
-            </div>
-            <div class="hero">
-                <img class="imagehero" src="img/hero2.webp" alt="heroimg">
-            </div>
-        </section>   
-        <section class="section2">
-            <div class="subtitulo">
-                <h3>Categorías</h3>
-            </div>
-            <div class="categorias">
-                <div class="categoria" data-categoria="Ropa">
-                    <div class="contenedor_categoria">
-                        <img src="img/ropa.webp" alt="Categoría 1" class="imageCategoria">
-                        <h4>Ropa</h4>
-                    </div>
-                </div>
-                <div class="categoria" data-categoria="Accesorios">
-                    <div class="contenedor_categoria">
-                        <img src="img/accesorios.webp" alt="Categoría 2" class="imageCategoria">
-                        <h4>Accesorios</h4>
-                    </div>
-                </div>
-                <div class="categoria" data-categoria="Calzados">
-                    <div class="contenedor_categoria">
-                        <img src="img/calzado.webp" alt="Categoría 4" class="imageCategoria">
-                        <h4>Calzados</h4>
-                    </div>
-                </div>  
-                <div class="categoria" data-categoria="Otros">
-                    <div class="contenedor_categoria">
-                        <img src="img/alquiler.webp" alt="Categoría 3" class="imageCategoria">
-                        <h4>Otros</h4>
-                    </div>
-                </div>
-            </div>
-            <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const categorias = document.querySelectorAll('.categoria');
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Renew</title>
+    <meta name="description" content="Aplicación para la compra, venta y alquiler de ropa de segunda mano.">
+    <meta name="theme-color" content="#6b8678">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/index.css">
+</head>
 
-                categorias.forEach(categoria => {
-                    categoria.addEventListener('click', () => {
-                        const categoriaSeleccionada = categoria.dataset.categoria;
-                        localStorage.setItem('categoriaFiltrada', categoriaSeleccionada);
-                        window.location.href = 'productos.html';
-                    });
-                });
-            });
-            </script>            
-            <div class="subtitulo">
-                <h3>Productos destacados</h3>
-            </div>
-            <div class="productos">
-                <div class="producto">
-                    <a href="">
-                        <div class="prenda">
-                            <img class="imageprenda" src="img/casaca red bull.webp" alt="prenda">
-                        </div>
-                    </a>
-                    <div class="info_prenda">
-                        <a href="">
-                            <h3>Casaca Redbull</h3>
-                        </a>
-                        <div class="precio_prenda">
-                            <p>45.99 PEN</p>
-                        </div>
-                        <div class="precio_prenda">
-                            <span>buen estado</span>
-                            <span>Ropa</span>
-                            <span>Varon</span>
-                        </div>
+<body>
+    <section class="navbar">
+        <div id="nav"></div>
+        <script src="js/header.js"></script>
+    </section>    
+
+    <section class="section1"> ... </section> <!-- lo que ya tienes -->
+
+    <section class="section2"> ... </section> <!-- tus categorías y destacados -->
+
+    <!-- NUEVA SECCIÓN: Productos recientes -->
+    <section class="section-recientes">
+        <div class="subtitulo">
+            <h3>Productos recientes</h3>
+        </div>
+        <div class="lista_recientes"></div>
+    </section>
+
+    <section class="footer">
+        <div id="footer"></div>
+        <script src="js/footer.js"></script>
+    </section> 
+
+    <!-- SCRIPT para productos recientes -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const listaRecientes = document.querySelector('.lista_recientes');
+        const productos = JSON.parse(localStorage.getItem('productos')) || [];
+
+        const recientes = productos.slice(-4).reverse();
+
+        recientes.forEach((producto, index) => {
+            const productoDiv = document.createElement('div');
+            productoDiv.classList.add('producto');
+
+            productoDiv.innerHTML = `
+                <a href="#">
+                    <div class="prenda">
+                        <img class="imageprenda" src="${producto.imagen}" alt="prenda">
                     </div>
-                    <div class="boton_prenda">
-                        <button class="boton_agregar">
-                            <a class="text_boton_agregar" href="">Lo quiero!</a>
-                        </button>
+                </a>
+                <div class="info_prenda">
+                    <a href="#"><h3>${producto.nombre}</h3></a>
+                    <div class="precio_prenda">
+                        <p>${producto.precio} PEN</p>
                     </div>
-                </div>
-                <div class="producto">
-                    <a href="">
-                        <div class="prenda">
-                            <img class="imageprenda" src="img/zapatilla.webp" alt="prenda">
-                        </div>
-                    </a>
-                    <div class="info_prenda">
-                        <a href="">
-                            <h3>Zapatilla Sneaker</h3>
-                        </a>
-                        <div class="precio_prenda">
-                            <p>100.00 PEN</p>
-                        </div>
-                        <div class="precio_prenda">
-                            <span>buen estado</span>
-                            <span>Calzados</span>
-                            <span>Unisex</span>
-                        </div>
-                    </div>
-                    <div class="boton_prenda">
-                        <button class="boton_agregar">
-                            <a class="text_boton_agregar" href="">Lo quiero!</a>
-                        </button>
+                    <div class="precio_prenda">
+                        <span>${producto.estado}</span>
+                        <span>${producto.categoria}</span>
+                        <span>${producto.genero}</span>              
+                    </div>   
+                    <div class="vendedor">
+                        <span>${producto.vendedor}</span>     
                     </div>
                 </div>
-                <div class="producto">
-                    <a href="">
-                        <div class="prenda">
-                            <img class="imageprenda" src="img/blusa mujer.webp" alt="prenda">
-                        </div>
-                    </a>
-                    <div class="info_prenda">
-                        <a href="">
-                            <h3>Blusa Mujer</h3>
-                        </a>
-                        <div class="precio_prenda">
-                            <p>50.00 PEN</p>
-                        </div>
-                        <div class="precio_prenda">
-                            <span>buen estado</span>
-                            <span>Ropa</span>
-                            <span>Mujer</span>
-                        </div>
-                    </div>
-                    <div class="boton_prenda">
-                        <button class="boton_agregar">
-                            <a class="text_boton_agregar" href="">Lo quiero!</a>
-                        </button>
-                    </div>
-                </div>
-                <div class="producto">
-                    <a href="">
-                        <div class="prenda">
-                            <img class="imageprenda" src="img/terno varon.webp" alt="prenda">
-                        </div>
-                    </a>
-                    <div class="info_prenda">
-                        <a href="">
-                            <h3>Terno Varon</h3>
-                        </a>
-                        <div class="precio_prenda">
-                            <p>39.99 PEN</p>
-                        </div>
-                        <div class="precio_prenda">
-                            <span>buen estado</span>
-                            <span>Ropa</span>
-                            <span>Varon</span>
-                        </div>
-                    </div>
-                    <div class="boton_prenda">
-                        <button class="boton_agregar">
-                            <a class="text_boton_agregar" href="">Lo quiero!</a>
-                        </button>
-                    </div>
-                </div>
-        </section>  
-        <section class="footer">
-            <div id="footer"></div>
-            <script src="js/footer.js"></script>
-        </section> 
-    </body>
+            `;
+
+            listaRecientes.appendChild(productoDiv);
+        });
+    });
+    </script>
+</body>
 </html>
