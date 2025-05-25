@@ -10,51 +10,53 @@
     <link rel="stylesheet" href="css/productos.css">
 </head>
 <body>
-    <section class="navbar">
-        <div id="nav"></div>
-        <script src="js/header.js"></script>
-    </section>
+    <div class="layout">
+        <section class="navbar">
+            <div id="nav"></div>
+            <script src="js/header.js"></script>
+        </section>
 
-    <section class="section1">
-        <div class="filtros">
-            <div class="categorias">
-                <label for="filtro-categoria">Categoría</label>
-                <div class="grupo_filtros">
-                    <select name="categoria" id="filtro-categoria">
-                        <option value="">Todos</option>
-                        <option value="Ropa">Ropa</option>
-                        <option value="Accesorios">Accesorios</option>
-                        <option value="Calzados">Calzados</option>
-                        <option value="Otros">Otros</option>                                
-                    </select>
+        <section class="section1">
+            <div class="filtros">
+                <div class="categorias">
+                    <label for="filtro-categoria">Categoría</label>
+                    <div class="grupo_filtros">
+                        <select name="categoria" id="filtro-categoria">
+                            <option value="">Todos</option>
+                            <option value="Ropa">Ropa</option>
+                            <option value="Accesorios">Accesorios</option>
+                            <option value="Calzados">Calzados</option>
+                            <option value="Otros">Otros</option>                                
+                        </select>
+                    </div>
+                </div>
+                <div class="categorias">
+                    <label for="filtro-genero">Género</label>
+                    <div class="grupo_filtros">
+                        <select name="genero" id="filtro-genero">
+                            <option value="">Todos</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                            <option value="Unisex">Unisex</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="aplicar_filtros">
+                    Filtrar
+                </button>
+            </div>
+
+            <div class="productos">
+                <div class="lista_productos">
                 </div>
             </div>
-            <div class="categorias">
-                <label for="filtro-genero">Género</label>
-                <div class="grupo_filtros">
-                    <select name="genero" id="filtro-genero">
-                        <option value="">Todos</option>
-                        <option value="Hombre">Hombre</option>
-                        <option value="Mujer">Mujer</option>
-                        <option value="Unisex">Unisex</option>
-                    </select>
-                </div>
-            </div>
-
-            <button class="aplicar_filtros">
-                Filtrar
-            </button>
-        </div>
-
-        <div class="productos">
-            <div class="lista_productos">
-            </div>
-        </div>
-    </section>
-    <section class="footer">
-        <div id="footer"></div>
-        <script src="js/footer.js"></script>
-    </section>
+        </section>
+        <footer class="footer">
+            <div id="footer"></div>
+        </footer>
+    </div>
     <script src="js/productos.js"></script>
+    <script src="js/footer.js"></script>
 </body>
 </html>
