@@ -163,7 +163,7 @@ select{
     border-color: var(--color-principal);
     padding: 1.5rem 3rem;
     font-size: clamp(2rem,2vh,5rem);
-    font-weight: 200;
+    font-weight: 800;
     cursor: pointer;
 }
 
