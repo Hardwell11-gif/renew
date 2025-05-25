@@ -295,6 +295,10 @@ a{
     font-size: clamp(1.5rem, 2vh, 2.5rem);
 }
 
+.vendedor{
+    display: none;
+}
+
 @media (max-width: 768px) {
 
     .section1{

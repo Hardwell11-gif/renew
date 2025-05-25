@@ -77,170 +77,17 @@
             });
             </script>            
             <div class="subtitulo">
-                <h3>Productos destacados</h3>
+                <h3>Productos recientes</h3>
             </div>
             <div class="productos">
                 <div class="producto">
-                    <a href="">
-                        <div class="prenda">
-                            <img class="imageprenda" src="img/casaca red bull.webp" alt="prenda">
-                        </div>
-                    </a>
-                    <div class="info_prenda">
-                        <a href="">
-                            <h3>Casaca Redbull</h3>
-                        </a>
-                        <div class="precio_prenda">
-                            <p>45.99 PEN</p>
-                        </div>
-                        <div class="precio_prenda">
-                            <span>buen estado</span>
-                            <span>Ropa</span>
-                            <span>Varon</span>
-                        </div>
-                    </div>
-                    <div class="boton_prenda">
-                        <button class="boton_agregar">
-                            <a class="text_boton_agregar" href="">Lo quiero!</a>
-                        </button>
-                    </div>
-                </div>
-                <div class="producto">
-                    <a href="">
-                        <div class="prenda">
-                            <img class="imageprenda" src="img/zapatilla.webp" alt="prenda">
-                        </div>
-                    </a>
-                    <div class="info_prenda">
-                        <a href="">
-                            <h3>Zapatilla Sneaker</h3>
-                        </a>
-                        <div class="precio_prenda">
-                            <p>100.00 PEN</p>
-                        </div>
-                        <div class="precio_prenda">
-                            <span>buen estado</span>
-                            <span>Calzados</span>
-                            <span>Unisex</span>
-                        </div>
-                    </div>
-                    <div class="boton_prenda">
-                        <button class="boton_agregar">
-                            <a class="text_boton_agregar" href="">Lo quiero!</a>
-                        </button>
-                    </div>
-                </div>
-                <div class="producto">
-                    <a href="">
-                        <div class="prenda">
-                            <img class="imageprenda" src="img/blusa mujer.webp" alt="prenda">
-                        </div>
-                    </a>
-                    <div class="info_prenda">
-                        <a href="">
-                            <h3>Blusa Mujer</h3>
-                        </a>
-                        <div class="precio_prenda">
-                            <p>50.00 PEN</p>
-                        </div>
-                        <div class="precio_prenda">
-                            <span>buen estado</span>
-                            <span>Ropa</span>
-                            <span>Mujer</span>
-                        </div>
-                    </div>
-                    <div class="boton_prenda">
-                        <button class="boton_agregar">
-                            <a class="text_boton_agregar" href="">Lo quiero!</a>
-                        </button>
-                    </div>
-                </div>
-                <div class="producto">
-                    <a href="">
-                        <div class="prenda">
-                            <img class="imageprenda" src="img/terno varon.webp" alt="prenda">
-                        </div>
-                    </a>
-                    <div class="info_prenda">
-                        <a href="">
-                            <h3>Terno Varon</h3>
-                        </a>
-                        <div class="precio_prenda">
-                            <p>39.99 PEN</p>
-                        </div>
-                        <div class="precio_prenda">
-                            <span>buen estado</span>
-                            <span>Ropa</span>
-                            <span>Varon</span>
-                        </div>
-                    </div>
-                    <div class="boton_prenda">
-                        <button class="boton_agregar">
-                            <a class="text_boton_agregar" href="">Lo quiero!</a>
-                        </button>
-                    </div>
                 </div>
             </div>
+            <script src="js/productos_recientes.js"></script> 
         </section>  
         <section class="footer">
             <div id="footer"></div>
             <script src="js/footer.js"></script>
-        </section> 
-
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const contenedor = document.querySelector('.productos');
-        const productos = JSON.parse(localStorage.getItem('productos')) || [];
-    
-        const maxTotal = 4;
-        const productosNuevos = productos.slice(-maxTotal).reverse(); // últimos nuevos
-    
-        // Insertar nuevos primero
-        productosNuevos.forEach(producto => {
-            const productoDiv = document.createElement('div');
-            productoDiv.classList.add('producto');
-    
-            productoDiv.innerHTML = `
-                <a href="#">
-                    <div class="prenda">
-                        <img class="imageprenda" src="${producto.imagen}" alt="prenda">
-                    </div>
-                </a>
-                <div class="info_prenda">
-                    <a href="#"><h3>${producto.nombre}</h3></a>
-                    <div class="precio_prenda">
-                        <p>${producto.precio} PEN</p>
-                    </div>
-                    <div class="precio_prenda">
-                        <span>${producto.estado}</span>
-                        <span>${producto.categoria}</span>
-                        <span>${producto.genero}</span>              
-                    </div>   
-                    <div class="vendedor">
-                        <span>${producto.vendedor}</span>     
-                    </div>
-                </div>
-                <div class="boton_prenda">
-                    <button class="boton_agregar">
-                        <a class="text_boton_agregar" href="#">Lo quiero!</a>
-                    </button>
-                </div>
-            `;
-    
-            contenedor.prepend(productoDiv);
-        });
-    
-        // Eliminar extras si hay más de 4
-        const productosRenderizados = contenedor.querySelectorAll('.producto');
-        if (productosRenderizados.length > maxTotal) {
-            const extras = productosRenderizados.length - maxTotal;
-            for (let i = 0; i < extras; i++) {
-                contenedor.lastElementChild.remove();
-            }
-        }
-    });
-    </script>
-
-        
+        </section>        
     </body>
 </html>
