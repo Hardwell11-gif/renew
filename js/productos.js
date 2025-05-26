@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (productosFiltrados.length === 0) {
             listaProductos.innerHTML = '<p style="text-align: center;">No se encontraron productos.</p>';
             listaProductos.style.height = '100vh';
-            // Ocultar footer si no hay productos
             if (footer) footer.style.display = 'none';
             return;
         }
@@ -54,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         listaProductos.style.height = '100%';
 
-        // --- NUEVO: Mostrar footer si hay más de 15 productos ---
         const totalProductos = listaProductos.querySelectorAll('.producto').length;
         if (footer) {
             if (totalProductos >9) {
