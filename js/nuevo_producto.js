@@ -13,15 +13,13 @@ formulario.addEventListener('submit', function (event) {
     const imagenesSecundarias = document.getElementById('imagen_2').files;
     const errorImagenSecundaria = document.getElementById('imagen_2_error');
 
-    // Validación de campos vacíos
     if (!nombre || !categoria || !estado || !genero || !precioOriginal || !descripcion || !imagenFile) {
         alert("Por favor, completa todos los campos.");
         return;
     }
 
-    // Validar que haya exactamente 1 imágenes secundarias
     if (imagenesSecundarias.length !== 1) {
-        errorImagenSecundaria.textContent = "Debes subir exactamente 1 imgen secundarias.";
+        errorImagenSecundaria.textContent = "Debes subir exactamente 1 imagen secundaria.";
         return;
     } else {
         errorImagenSecundaria.textContent = "";
@@ -36,33 +34,36 @@ formulario.addEventListener('submit', function (event) {
     const nombreVendedor = `${currentUser.nombres} ${currentUser.apellidos || ''}`.trim();
     const precioFinal = (precioOriginal * 1.1).toFixed(2);
 
-    const reader = new FileReader();
+    // Convertir imagen principal a WebP
+    convertirAWebP(imagenFile).then(base64Image => {
+        const promesasSecundarias = Array.from(imagenesSecundarias).map(file => convertirAWebP(file));
 
-    reader.onload = function () {
-        const base64Image = reader.result;
+        Promise.all(promesasSecundarias).then(imagenesSecundariasBase64 => {
+            guardarProducto(base64Image, imagenesSecundariasBase64);
+        });
+    });
 
-        // Convertir imágenes secundarias a base64
-        const imagenesSecundariasBase64 = [];
-
-        if (imagenesSecundarias.length > 0) {
-            let cargadas = 0;
-            for (let i = 0; i < imagenesSecundarias.length; i++) {
-                const fileReaderSec = new FileReader();
-                fileReaderSec.onload = function (e) {
-                    imagenesSecundariasBase64.push(e.target.result);
-                    cargadas++;
-                    if (cargadas === imagenesSecundarias.length) {
-                        guardarProducto(base64Image, imagenesSecundariasBase64);
-                    }
+    function convertirAWebP(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    const webpDataUrl = canvas.toDataURL('image/webp', 0.8); // Calidad 0.8
+                    resolve(webpDataUrl);
                 };
-                fileReaderSec.readAsDataURL(imagenesSecundarias[i]);
-            }
-        } else {
-            guardarProducto(base64Image, []);
-        }
-    };
-
-    reader.readAsDataURL(imagenFile); // Imagen principal a base64
+                img.onerror = reject;
+                img.src = e.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
 
     function guardarProducto(imagenPrincipalBase64, imagenesSecBase64) {
         const nuevoProducto = {
