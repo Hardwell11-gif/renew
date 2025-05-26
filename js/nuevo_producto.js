@@ -3,6 +3,12 @@ const formulario = document.getElementById("formProducto");
 formulario.addEventListener('submit', function (event) {
     event.preventDefault();
 
+    const submitButton = formulario.querySelector('button[type="submit"]');
+    if (submitButton) {
+        submitButton.disabled = true; // 🔒 Deshabilita el botón para evitar múltiples envíos
+        submitButton.textContent = 'Guardando...'; // (opcional) cambia el texto
+    }
+
     const nombre = document.getElementById('nombre').value;
     const categoria = document.getElementById('categoria').value;
     const estado = document.getElementById('estado').value;
@@ -15,11 +21,13 @@ formulario.addEventListener('submit', function (event) {
 
     if (!nombre || !categoria || !estado || !genero || !precioOriginal || !descripcion || !imagenFile) {
         alert("Por favor, completa todos los campos.");
+        if (submitButton) submitButton.disabled = false;
         return;
     }
 
     if (imagenesSecundarias.length !== 3) {
         errorImagenSecundaria.textContent = "Debes subir exactamente 3 imágenes secundaria.";
+        if (submitButton) submitButton.disabled = false;
         return;
     } else {
         errorImagenSecundaria.textContent = "";
@@ -28,19 +36,24 @@ formulario.addEventListener('submit', function (event) {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) {
         alert("No se encontró el usuario en sesión. Inicia sesión para publicar.");
+        if (submitButton) submitButton.disabled = false;
         return;
     }
 
     const nombreVendedor = `${currentUser.nombres} ${currentUser.apellidos || ''}`.trim();
     const precioFinal = (precioOriginal * 1.1).toFixed(2);
 
-    // Convertir imagen principal a WebP
     convertirAWebP(imagenFile).then(base64Image => {
         const promesasSecundarias = Array.from(imagenesSecundarias).map(file => convertirAWebP(file));
-
         Promise.all(promesasSecundarias).then(imagenesSecundariasBase64 => {
             guardarProducto(base64Image, imagenesSecundariasBase64);
+        }).catch(error => {
+            alert("Error al procesar imágenes secundarias.");
+            if (submitButton) submitButton.disabled = false;
         });
+    }).catch(error => {
+        alert("Error al procesar la imagen principal.");
+        if (submitButton) submitButton.disabled = false;
     });
 
     function convertirAWebP(file) {
@@ -54,7 +67,7 @@ formulario.addEventListener('submit', function (event) {
                     canvas.height = img.height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0);
-                    const webpDataUrl = canvas.toDataURL('image/webp', 0.8); // Calidad 0.8
+                    const webpDataUrl = canvas.toDataURL('image/webp', 0.8);
                     resolve(webpDataUrl);
                 };
                 img.onerror = reject;
@@ -82,7 +95,9 @@ formulario.addEventListener('submit', function (event) {
         productos.push(nuevoProducto);
         localStorage.setItem('productos', JSON.stringify(productos));
 
+        // Redirigir inmediatamente
         alert("Producto agregado exitosamente.");
         formulario.reset();
+        window.location.href = 'productos.html';
     }
 });
