@@ -18,8 +18,8 @@ formulario.addEventListener('submit', function (event) {
         return;
     }
 
-    if (imagenesSecundarias.length !== 1) {
-        errorImagenSecundaria.textContent = "Debes subir exactamente 1 imagen secundaria.";
+    if (imagenesSecundarias.length !== 3) {
+        errorImagenSecundaria.textContent = "Debes subir exactamente 3 imágenes secundaria.";
         return;
     } else {
         errorImagenSecundaria.textContent = "";
