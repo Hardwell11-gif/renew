@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const nombreInput = document.getElementById("nombre");
+    const direccionInput = document.getElementById("direccion");
+    const distritoInput = document.getElementById("distrito");
     const celularInput = document.getElementById("celular");
     const emailInput = document.getElementById("email");
     const formPerfil = document.getElementById("formPerfil");
@@ -22,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     nombreInput.value = usuario.nombres + " " + usuario.apellidos;
     nombreInput.readOnly = true;
+    direccionInput.value = usuario.direccion;
+    distritoInput.value = usuario.distrito;
     celularInput.value = usuario.celular;
     emailInput.value = usuario.email;
     emailInput.readOnly = true;
@@ -46,7 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         usuario.celular = celular;
-        usuario.nombres = nombreInput.value;
+        usuario.direccion = direccionInput.value;
+        usuario.distrito = distritoInput.value;
 
         localStorage.setItem("users", JSON.stringify(users));
         localStorage.setItem("currentUser", JSON.stringify({

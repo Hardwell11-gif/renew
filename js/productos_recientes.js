@@ -10,16 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const productoDiv = document.createElement('div');
         productoDiv.classList.add('producto');
 
-        productoDiv.innerHTML = `
-            <a href="#">
-                <div class="prenda">
+        productoDiv.innerHTML = `   
+            <div class="prenda">
                     <img class="imageprenda" src="${producto.imagen}" alt="prenda">
-                </div>
-            </a>
+            </div>
             <div class="info_prenda">
-                <a href="#">
-                    <h3>${producto.nombre}</h3>
-                </a>
+                <h3>${producto.nombre}</h3>
                 <div class="precio_prenda">
                     <p>${producto.precioFinal} PEN</p>
                 </div>

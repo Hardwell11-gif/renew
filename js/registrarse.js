@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         distrito,
         dni,
         email,
-        celular, // NUEVO
+        celular,
         password,
         creadoEl: new Date().toString(),
         productos: [],
