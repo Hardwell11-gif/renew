@@ -19,9 +19,9 @@ formulario.addEventListener('submit', function (event) {
         return;
     }
 
-    // Validar que haya exactamente 4 imágenes secundarias
+    // Validar que haya exactamente 1 imágenes secundarias
     if (imagenesSecundarias.length !== 1) {
-        errorImagenSecundaria.textContent = "Debes subir exactamente 4 imágenes secundarias.";
+        errorImagenSecundaria.textContent = "Debes subir exactamente 1 imgen secundarias.";
         return;
     } else {
         errorImagenSecundaria.textContent = "";
