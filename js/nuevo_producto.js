@@ -20,7 +20,7 @@ formulario.addEventListener('submit', function (event) {
     }
 
     // Validar que haya exactamente 4 imágenes secundarias
-    if (imagenesSecundarias.length !== 4) {
+    if (imagenesSecundarias.length !== 1) {
         errorImagenSecundaria.textContent = "Debes subir exactamente 4 imágenes secundarias.";
         return;
     } else {
