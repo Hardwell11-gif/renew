@@ -7,7 +7,8 @@ formulario.addEventListener('submit', function (event) {
     const categoria = document.getElementById('categoria').value;
     const estado = document.getElementById('estado').value;
     const genero = document.getElementById('genero').value;
-    const precio = document.getElementById('precio').value;
+    const precioOriginal = parseFloat(document.getElementById('precio').value);
+    const precioFinal = (precioOriginal * 1.1).toFixed(2);
     const descripcion = document.getElementById('descripcion').value;
     const imagenFile = document.getElementById('imagen').files[0];
 
@@ -34,7 +35,7 @@ formulario.addEventListener('submit', function (event) {
             categoria,
             estado,
             genero,
-            precio,
+            precioFinal,
             descripcion,
             imagen: base64Image, // Imagen en base64
             vendedor: nombreVendedor // Nombre completo del vendedor
