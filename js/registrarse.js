@@ -8,13 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const nombres = document.getElementById("nombres").value.trim();
       const apellidos = document.getElementById("apellidos").value.trim();
+      const direccion = document.getElementById("direccion").value.trim();
+      const distrito = document.getElementById("distrito").value.trim();
+      const dni = document.getElementById("dni").value.trim();
       const email = document.getElementById("email").value.trim();
       const celular = document.getElementById("celular").value.trim(); // NUEVO
       const password = document.getElementById("password").value.trim();
       const valida_password = document.getElementById("valida_password").value.trim();
 
       // Validaciones
-      if (!nombres || !apellidos || !email || !celular || !password || !valida_password) {
+      if (!nombres || !apellidos  || !direccion || !distrito || !dni || !email || !celular || !password || !valida_password) {
         errorElement.textContent = "Todos los campos son obligatorios.";
         return;
       }
@@ -43,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
         id: Date.now().toString(),
         nombres,
         apellidos,
+        direccion,
+        distrito,
+        dni,
         email,
         celular, // NUEVO
         password,
