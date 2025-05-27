@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#6b8678">
     <meta name="description" content="Aplicación para la compra, venta y alquiler de ropa de segunda mano.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/detalles_producto.css">
+    <link rel="stylesheet" href="css/resumen_compra.css">
     <link rel="icon" href="img/marca_renew.webp" type="image/webp">
 </head>
 <body>
@@ -15,9 +15,10 @@
         <div id="nav"></div>
         <script src="js/header.js"></script>
     </section>
-    <section class="producto_elegido" id="producto_elegido">
+    <section class="producto_a_vender" id="producto_a_vender">
         <div class="contenedor" id="contenedor">
             <div class="contenedor_producto" id="contenedor_producto">
+                <p class="titulos">Resumen del producto</p>
                 <div class="detalles_producto" id="detalles_producto">
                     <div class="foto_producto" id="foto_producto">
                         <img class="imagen_producto" id="imagen_producto" src="" alt="Imagen del producto">
@@ -49,13 +50,31 @@
                             <h3>Descripción</h3>
                             <p id="descripcion_producto"></p>
                         </div>
-                        <button type="submit" id="boton_comprar">
-                            Lo compro!
-                        </button>
                     </div>
                 </div>
-                <div class="detalles_producto" id="detalles_producto">
-                    <div class="galeria_secundaria" id="imagenes_secundarias"></div>                        
+            </div>
+            <div class="resumen_venta">
+                <div class="contenedor_producto">
+                    <p class="titulos">Resumen de la venta</p>
+                    <div class="datos_compra">
+                        <h3>Dirección del comprador</h3>
+                        <input type="text" id="direccion_comprador" placeholder="Ingrese la dirección del comprador">                  
+                    </div>
+                    <div class="datos_compra">
+                        <h3>Precio del producto</h3>
+                        <input type="number" id="precio_producto" placeholder="precio del producto" min="0">
+                    </div>    
+                    <div class="datos_compra">
+                        <h3>Monto de envío</h3>
+                        <input type="number" id="monto_envio" placeholder="Monto de envío" min="0">
+                    </div>
+                    <div class="datos_compra">
+                        <h3>Total a pagar</h3>
+                        <input type="number" id="total_pagar" placeholder="Total a pagar" min="0">
+                    </div>
+                    <div class="pagar">
+                        <button id="boton_pagar">Pagar</button>
+                    </div>
                 </div>
             </div>
         </div>

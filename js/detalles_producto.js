@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert("Este producto lo vendes tú");
             window.location.href = 'perfil.html#vendo';
         } else {
-            window.location.href = 'formato_compra.html';
+            window.location.href = 'resumen_compra.html';
         }
     });
 });
