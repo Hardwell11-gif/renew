@@ -58,7 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
             id: usuario.id,
             nombres: usuario.nombres,
             apellidos: usuario.apellidos,
-            email: usuario.email
+            email: usuario.email,
+            direccion: usuario.direccion,
+            distrito: usuario.distrito
         }));
 
         alert("Datos actualizados correctamente.");

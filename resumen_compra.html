@@ -46,7 +46,7 @@
                                 <span class="agregado" id="nombre_vendedor"></span>
                             </div>
                         </div>
-                        <div id="descripcion_producto_div">
+                        <div class="descripcion_producto_div" id="descripcion_producto_div">
                             <h3>Descripción</h3>
                             <p id="descripcion_producto"></p>
                         </div>
@@ -60,6 +60,52 @@
                         <h3>Dirección del comprador</h3>
                         <input type="text" id="direccion_comprador" placeholder="Ingrese la dirección del comprador">                  
                     </div>
+                    <div class="datos_compra">
+                        <h3 for="distrito">Distrito</h3>
+                        <select class="entrada" id="distrito" required>
+                            <option value=""> Seleccionar</option>
+                            <option value="Ancón">Ancón</option>
+                            <option value="Ate">Ate</option>
+                            <option value="Barranco">Barranco</option>
+                            <option value="Breña">Breña</option>
+                            <option value="Carabayllo">Carabayllo</option>
+                            <option value="Chorrillos">Chorrillos</option>
+                            <option value="Cieneguilla">Cieneguilla</option>
+                            <option value="Comas">Comas</option>
+                            <option value="El Agustino">El Agustino</option>
+                            <option value="Independencia">Independencia</option>
+                            <option value="Jesús María">Jesús María</option>
+                            <option value="La Molina">La Molina</option>
+                            <option value="La Victoria">La Victoria</option>
+                            <option value="Lima">Lima</option>
+                            <option value="Lince">Lince</option>
+                            <option value="Los Olivos">Los Olivos</option>
+                            <option value="Lurigancho">Lurigancho</option>
+                            <option value="Lurín">Lurín</option>
+                            <option value="Magdalena del Mar">Magdalena del Mar</option>
+                            <option value="Miraflores">Miraflores</option>
+                            <option value="Pueblo Libre">Pueblo Libre</option>
+                            <option value="Puente Piedra">Puente Piedra</option>
+                            <option value="Punta Hermosa">Punta Hermosa</option>
+                            <option value="Punta Negra">Punta Negra</option>
+                            <option value="Rímac">Rímac</option>
+                            <option value="San Bartolo">San Bartolo</option>
+                            <option value="San Borja">San Borja</option>
+                            <option value="San Isidro">San Isidro</option>
+                            <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
+                            <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+                            <option value="San Luis">San Luis</option>
+                            <option value="San Martín de Porres">San Martín de Porres</option>
+                            <option value="San Miguel">San Miguel</option>
+                            <option value="Santa Anita">Santa Anita</option>
+                            <option value="Santa María del Mar">Santa María del Mar</option>
+                            <option value="Santa Rosa">Santa Rosa</option>
+                            <option value="Santiago de Surco">Santiago de Surco</option>
+                            <option value="Surquillo">Surquillo</option>
+                            <option value="Villa El Salvador">Villa El Salvador</option>
+                            <option value="Villa María del Triunfo">Villa María del Triunfo</option>
+                        </select>
+                    </div>                    
                     <div class="datos_compra">
                         <h3>Precio del producto</h3>
                         <input type="number" id="precio_producto" placeholder="precio del producto" min="0">
@@ -84,5 +130,6 @@
         <script src="js/footer.js"></script>
     </section>
     <script src="js/detalles_producto.js"></script>
+    <script src="js/resumen_compra.js"></script>
 </body>
 </html>

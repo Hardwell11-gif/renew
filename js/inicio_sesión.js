@@ -27,7 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
       id: existingUser.id,
       nombres: existingUser.nombres,
       apellidos: existingUser.apellidos,
-      email: existingUser.email
+      email: existingUser.email,
+      direccion: existingUser.direccion,
+      distrito: existingUser.distrito
     }));
 
     // Marcar como logueado

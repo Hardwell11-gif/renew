@@ -5,8 +5,8 @@ formulario.addEventListener('submit', function (event) {
 
     const submitButton = formulario.querySelector('button[type="submit"]');
     if (submitButton) {
-        submitButton.disabled = true; // 🔒 Deshabilita el botón para evitar múltiples envíos
-        submitButton.textContent = 'Guardando...'; // (opcional) cambia el texto
+        submitButton.disabled = true;
+        submitButton.textContent = 'Guardando...'; 
     }
 
     const nombre = document.getElementById('nombre').value;
@@ -96,7 +96,7 @@ formulario.addEventListener('submit', function (event) {
         localStorage.setItem('productos', JSON.stringify(productos));
 
         // Redirigir inmediatamente
-        alert("Producto agregado exitosamente.");
+        alert("Producto agregado exitosamente.Recuerda que tu producto se publicará con un precio del 10% más.");
         formulario.reset();
         window.location.href = 'productos.html';
     }

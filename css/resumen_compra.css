@@ -139,6 +139,13 @@ span.agregado{
     justify-content: center;
     flex-direction: column;
     margin: 0 1rem;
+    gap: 1rem;
+}
+
+.descripcion_producto_div{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .resumen_venta{
@@ -156,14 +163,16 @@ span.agregado{
     justify-content: center;
     width: 100%;;
     padding: 2rem;
+    gap: 1rem;
 }
 
-input{
+input,.entrada{
     width: 80%;
     padding: 1rem;
     border-radius: 0.5rem;
     border: 1px solid #ccc;
     font-size: 1.6rem;
+    text-align: center;
 }
 
 .pagar{

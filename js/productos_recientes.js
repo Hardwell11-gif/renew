@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="info_prenda">
                 <h3>${producto.nombre}</h3>
                 <div class="precio_prenda">
-                    <p>${producto.precioFinal} PEN</p>
+                    <p>S/ ${producto.precioFinal}</p>
                 </div>
                 <div class="precio_prenda">
                     <span>${producto.estado}</span>
