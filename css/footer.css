@@ -17,6 +17,10 @@ ul{
     list-style: none;
 }
 
+a{
+    color: black;
+}   
+
 .div1footer{
     background-color: var(--color-principal);
     display: flex;
