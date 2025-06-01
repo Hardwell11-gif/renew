@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   let productos = [];
 
+  // Ocultar footer al inicio
+  if (footer) footer.style.display = 'none';
+
   async function obtenerProductos() {
     try {
       const response = await fetch('http://localhost:3000/productos');
@@ -17,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
       console.error("Error al cargar productos:", error);
       listaProductos.innerHTML = '<p style="text-align: center;">No se pudieron cargar los productos.</p>';
+      if (footer) footer.style.display = 'none';  // Ocultar footer si hay error
     }
   }
 
@@ -115,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const boton = e.target.closest('.boton_agregar');
     if (boton) {
       const id = boton.getAttribute('data-id');
-        window.location.href = 'detalles_producto.html?id='+id;
+      window.location.href = 'detalles_producto.html?id=' + id;
     }
   });
 
