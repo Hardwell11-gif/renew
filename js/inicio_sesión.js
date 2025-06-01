@@ -31,8 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const params = new URLSearchParams(window.location.search);
       const redirectURL = params.get('redirect');
 
-      alert("Bienvenido! Espero que estes bien 😊")
-      window.location.href = redirectURL ? decodeURIComponent(redirectURL) : "index.html";
+      // notificación de ingreso
+      Swal.fire({
+        title: '¡Bienvenido Renewer!',
+        text: 'Haz clic en OK para continuar.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const redirectURL = new URLSearchParams(window.location.search).get("redirect");
+          window.location.href = redirectURL ? decodeURIComponent(redirectURL) : "index.html";
+        }
+      });
 
     } catch (error) {
       errorElement.textContent = "No se pudo conectar al servidor.";

@@ -20,6 +20,18 @@ body {
   min-height: 100vh;
 }
 
+.swal2-confirm {
+  text-align: center !important;
+}
+
+.swal2-confirm {
+  margin: 0 auto !important;
+  display: block !important;
+  width: 100px; /* Ajusta el ancho si quieres */
+  text-align: center;
+}
+
+
 .navperfil{
   width: 100%;
   display: flex;

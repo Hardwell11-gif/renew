@@ -8,55 +8,45 @@ const fs = require('fs');
 const app = express();
 app.use(cors());
 
+// Función para parsear las imágenes secundarias almacenadas en la base (JSON o CSV)
 function parseImagenes(value) {
   if (!value) return [];
-  
+
   if (typeof value === 'string') {
     try {
-      // Intenta parsear JSON (si se guardó como JSON string)
       const parsed = JSON.parse(value);
       if (Array.isArray(parsed)) return parsed;
-      // Si no es array, sigue con split
     } catch {
-      // No es JSON, continuar
+      // No es JSON, asumir CSV
+      return value.split(',').map(v => v.trim()).filter(Boolean);
     }
-    // Si no es JSON, asume que es string separado por comas
-    return value.split(',');
   }
-
-  // Si ya es array, devolver directamente
   if (Array.isArray(value)) return value;
 
-  // En cualquier otro caso, devolver arreglo vacío
   return [];
 }
 
-// Middleware para parsear JSON en rutas que no usen archivos
+// Middleware para parsear JSON en cuerpos de petición
 app.use(express.json());
 
-// Carpeta para guardar uploads
+// Carpeta uploads para imágenes
 const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
-// Configuración multer para guardar archivos en /uploads
+// Multer configuración para subir archivos
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
+  destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const ext = path.extname(file.originalname);
-    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
   }
 });
 const upload = multer({ storage });
 
-// Servir archivos estáticos
+// Servir archivos estáticos en /uploads
 app.use('/uploads', express.static(uploadDir));
 
-// Conexión a MySQL 
+// Configuración MySQL
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -65,49 +55,35 @@ const db = mysql.createConnection({
 });
 
 db.connect(err => {
-  if (err) {
-    console.error('❌ Error de conexión:', err);
-  } else {
-    console.log('✅ Conectado a la BD');
-  }
+  if (err) console.error('❌ Error de conexión:', err);
+  else console.log('✅ Conectado a la BD');
 });
 
-// ----------------- RUTAS -----------------
+// --- RUTAS ---
 
 // Registrar usuario
 app.post('/usuarios', (req, res) => {
   const { nombres, apellidos, direccion, distrito, dni, email, celular, password } = req.body;
-
-  const sql = `
-    INSERT INTO usuarios 
-      (nombres, apellidos, direccion, distrito, dni, email, celular, contrasena) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-
+  const sql = `INSERT INTO usuarios (nombres, apellidos, direccion, distrito, dni, email, celular, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
   db.query(sql, [nombres, apellidos, direccion, distrito, dni, email, celular, password], (err, results) => {
     if (err) {
-      if (err.code === 'ER_DUP_ENTRY') {
-        return res.status(400).json({ error: 'Correo electrónico ya registrado' });
-      }
+      if (err.code === 'ER_DUP_ENTRY') return res.status(400).json({ error: 'Correo electrónico ya registrado' });
       return res.status(500).json({ error: err.message });
     }
-
     res.json({ message: 'Usuario registrado correctamente', id: results.insertId });
   });
 });
 
-// Iniciar sesión
+// Login usuario
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
   const sql = 'SELECT * FROM usuarios WHERE email = ?';
   db.query(sql, [email], (err, results) => {
     if (err) return res.status(500).json({ error: 'Error de servidor' });
-
     if (results.length === 0) return res.status(404).json({ error: 'Correo no registrado' });
 
     const user = results[0];
-    if (user.contrasena !== password) {
-      return res.status(401).json({ error: 'Contraseña incorrecta' });
-    }
+    if (user.contrasena !== password) return res.status(401).json({ error: 'Contraseña incorrecta' });
 
     res.json({
       message: 'Inicio de sesión exitoso',
@@ -117,7 +93,8 @@ app.post('/login', (req, res) => {
         apellidos: user.apellidos,
         email: user.email,
         direccion: user.direccion,
-        distrito: user.distrito
+        distrito: user.distrito,
+        celular: user.celular
       }
     });
   });
@@ -129,31 +106,21 @@ app.post('/productos', upload.fields([
   { name: 'imagenesSecundarias', maxCount: 3 }
 ]), (req, res) => {
   try {
-    const {
-      nombre,
-      categoria,
-      estado,
-      genero,
-      precioFinal,
-      descripcion,
-      vendedor_id
-    } = req.body;
+    const { nombre, categoria, estado, genero, precioFinal, descripcion, vendedor_id } = req.body;
 
     const imagen = req.files['imagen'] ? req.files['imagen'][0].filename : null;
     const imagenesSecundarias = req.files['imagenesSecundarias'] 
       ? req.files['imagenesSecundarias'].map(file => file.filename) 
       : [];
 
-    if (!nombre || !categoria || !estado || !genero || !precioFinal || !descripcion || !imagen || imagenesSecundarias.length !== 3) {
-      return res.status(400).json({ error: 'Faltan campos obligatorios o imágenes.' });
+    if (!nombre || !categoria || !estado || !genero || !precioFinal || !descripcion || !imagen) {
+      return res.status(400).json({ error: 'Faltan campos obligatorios o imagen principal.' });
+    }
+    if (imagenesSecundarias.length !== 3) {
+      return res.status(400).json({ error: 'Debe subir exactamente 3 imágenes secundarias.' });
     }
 
-    const sql = `
-      INSERT INTO productos 
-      (nombre, categoria, estado, genero, precio, descripcion, imagen, imagenes_secundarias, vendedor_id) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-
+    const sql = `INSERT INTO productos (nombre, categoria, estado, genero, precio, descripcion, imagen, imagenes_secundarias, vendedor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     db.query(sql, [
       nombre,
       categoria,
@@ -164,16 +131,16 @@ app.post('/productos', upload.fields([
       imagen,
       JSON.stringify(imagenesSecundarias),
       vendedor_id
-    ], (err, result) => {
+    ], (err) => {
       if (err) {
-        console.error("Error al guardar el producto:", err);
-        return res.status(500).json({ error: "Error al guardar el producto" });
+        console.error('Error al guardar producto:', err);
+        return res.status(500).json({ error: 'Error al guardar el producto' });
       }
-      res.status(201).json({ message: "Producto guardado exitosamente" });
+      res.status(201).json({ message: 'Producto guardado exitosamente' });
     });
   } catch (error) {
-    console.error("Error en /productos:", error);
-    res.status(500).json({ error: "Error interno del servidor" });
+    console.error('Error en /productos:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
 
@@ -185,14 +152,14 @@ app.get('/productos', (req, res) => {
     JOIN usuarios ON productos.vendedor_id = usuarios.id
     ORDER BY productos.id DESC
   `;
-
   db.query(sql, (err, results) => {
     if (err) return res.status(500).json({ error: 'Error al obtener productos' });
 
     const productos = results.map(prod => ({
       ...prod,
       imagenes_secundarias: parseImagenes(prod.imagenes_secundarias),
-      vendedor: prod.nombres + ' ' + prod.apellidos
+      vendedor: `${prod.nombres} ${prod.apellidos}`,
+      imagen: prod.imagen ? `http://localhost:3000/uploads/${prod.imagen}` : null
     }));
 
     res.json(productos);
@@ -202,22 +169,20 @@ app.get('/productos', (req, res) => {
 // Obtener producto por ID
 app.get('/productos/:id', (req, res) => {
   const productoId = req.params.id;
-
   const sql = `
     SELECT productos.*, usuarios.nombres, usuarios.apellidos 
     FROM productos 
     JOIN usuarios ON productos.vendedor_id = usuarios.id
     WHERE productos.id = ?
   `;
-
   db.query(sql, [productoId], (err, results) => {
     if (err) return res.status(500).json({ error: 'Error en la consulta' });
-
     if (results.length === 0) return res.status(404).json({ error: 'Producto no encontrado' });
 
     const producto = results[0];
     producto.imagenes_secundarias = parseImagenes(producto.imagenes_secundarias);
-    producto.vendedor = producto.nombres + ' ' + producto.apellidos;
+    producto.vendedor = `${producto.nombres} ${producto.apellidos}`;
+    producto.imagen = producto.imagen ? `http://localhost:3000/uploads/${producto.imagen}` : null;
 
     res.json(producto);
   });
@@ -236,17 +201,17 @@ app.get('/productos/vendedor/:userId', (req, res) => {
     if (err) return res.status(500).json({ error: 'Error al obtener productos' });
     const productos = results.map(prod => ({
       ...prod,
-      vendedor: prod.nombres + " " + prod.apellidos
+      vendedor: `${prod.nombres} ${prod.apellidos}`,
+      imagen: prod.imagen ? `http://localhost:3000/uploads/${prod.imagen}` : null
     }));
     res.json(productos);
   });
 });
 
-// Obtener productos recientes
+// Obtener productos recientes (los últimos 4)
 app.get('/productos/ultimos', (req, res) => {
   const sql = `
-    SELECT 
-    p.id, p.nombre, p.precio, p.estado, p.categoria, p.genero, p.imagen, u.nombres, u.apellidos
+    SELECT p.id, p.nombre, p.precio, p.estado, p.categoria, p.genero, p.imagen, u.nombres, u.apellidos
     FROM productos p
     JOIN usuarios u ON p.vendedor_id = u.id
     ORDER BY p.fecha_creacion DESC
@@ -277,7 +242,7 @@ app.get('/usuarios/:id', (req, res) => {
   });
 });
 
-// Actualizar perfil
+// Actualizar perfil de usuario
 app.put('/usuarios/:id', (req, res) => {
   const userId = req.params.id;
   const { direccion, distrito, celular } = req.body;
@@ -288,7 +253,7 @@ app.put('/usuarios/:id', (req, res) => {
   });
 });
 
-// Cambiar contraseña
+// Cambiar contraseña de usuario
 app.put('/usuarios/:id/password', (req, res) => {
   const userId = req.params.id;
   const { actual, nueva } = req.body;
@@ -299,9 +264,7 @@ app.put('/usuarios/:id/password', (req, res) => {
     if (results.length === 0) return res.status(404).json({ error: 'Usuario no encontrado' });
 
     const contrasenaActual = results[0].contrasena;
-    if (contrasenaActual !== actual) {
-      return res.status(400).json({ error: 'Contraseña actual incorrecta' });
-    }
+    if (contrasenaActual !== actual) return res.status(400).json({ error: 'Contraseña actual incorrecta' });
 
     const sqlUpdate = 'UPDATE usuarios SET contrasena = ? WHERE id = ?';
     db.query(sqlUpdate, [nueva, userId], (err2) => {
@@ -311,10 +274,10 @@ app.put('/usuarios/:id/password', (req, res) => {
   });
 });
 
-// Datos de usuario para resumen de compra
+// Datos usuario para resumen de compra
 app.get('/usuario/:id', (req, res) => {
   const id = req.params.id;
-  const sql = `SELECT nombres, apellidos, direccion, distrito, email FROM usuarios WHERE id = ?`;
+  const sql = 'SELECT nombres, apellidos, direccion, distrito, email FROM usuarios WHERE id = ?';
   db.query(sql, [id], (err, results) => {
     if (err) return res.status(500).json({ error: 'Error al obtener usuario' });
     if (results.length === 0) return res.status(404).json({ error: 'Usuario no encontrado' });
@@ -322,7 +285,45 @@ app.get('/usuario/:id', (req, res) => {
   });
 });
 
-// ------------------ INICIO ------------------
+// Eliminar producto por ID y sus imágenes asociadas
+app.delete('/productos/:id', (req, res) => {
+  const productoId = req.params.id;
+
+  const selectSql = 'SELECT imagen, imagenes_secundarias FROM productos WHERE id = ?';
+  db.query(selectSql, [productoId], (err, results) => {
+    if (err) {
+      console.error('Error al obtener imágenes del producto:', err);
+      return res.status(500).json({ error: 'Error al obtener imágenes' });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+
+    const { imagen, imagenes_secundarias } = results[0];
+    const secundarias = parseImagenes(imagenes_secundarias);
+
+    const eliminarArchivo = (filename) => {
+      const filePath = path.join(uploadDir, filename);
+      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    };
+
+    if (imagen) eliminarArchivo(imagen);
+    secundarias.forEach(eliminarArchivo);
+
+    const deleteSql = 'DELETE FROM productos WHERE id = ?';
+    db.query(deleteSql, [productoId], (err2) => {
+      if (err2) {
+        console.error('Error al eliminar producto:', err2);
+        return res.status(500).json({ error: 'Error al eliminar producto' });
+      }
+
+      res.json({ message: 'Producto e imágenes eliminados correctamente' });
+    });
+  });
+});
+
+// --- INICIO SERVIDOR ---
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);

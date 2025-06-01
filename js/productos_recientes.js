@@ -13,7 +13,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     try {
       const response = await fetch(`${backendUrl}/productos`);
       productos = await response.json();
-      mostrarProductos(productos);
+
+      // Mostramos solo los 4 últimos productos
+      const ultimosProductos = productos.slice(0,4);
+      mostrarProductos(ultimosProductos);
     } catch (error) {
       console.error("Error al cargar productos:", error);
       contenedor.innerHTML = '<p style="text-align: center;">No se pudieron cargar los productos.</p>';
@@ -23,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   function mostrarProductos(productos) {
     contenedor.innerHTML = '';
 
-    productos.forEach((producto, index) => {
+    productos.forEach((producto) => {
       const productoDiv = document.createElement('div');
       productoDiv.classList.add('producto');
 
@@ -39,10 +42,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         imagenSrc = backendUrl + imagenSrc;
       }
 
-      // Obtener precio (intenta varios posibles nombres de propiedad)
       let precio = producto.precioFinal ?? producto.precio ?? producto.price ?? 0;
 
-      // Validar y formatear precio a dos decimales
       if (typeof precio === 'string') {
         precio = parseFloat(precio);
       }
@@ -81,8 +82,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     contenedor.addEventListener('click', function (e) {
       const boton = e.target.closest('.boton_agregar');
       if (boton) {
-        const id = boton.getAttribute('data-id')
-        window.location.href = 'detalles_producto.html?id='+id;
+        const id = boton.getAttribute('data-id');
+        window.location.href = 'detalles_producto.html?id=' + id;
       }
     });
   }

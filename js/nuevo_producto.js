@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const response = await fetch("http://localhost:3000/productos", {
         method: "POST",
-        body: formData  // No ponemos Content-Type, el navegador lo asigna con boundary
+        body: formData 
       });
 
       const result = await response.json();

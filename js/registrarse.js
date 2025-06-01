@@ -17,19 +17,31 @@ document.addEventListener("DOMContentLoaded", () => {
       const valida_password = document.getElementById("valida_password").value.trim();
 
       // Validaciones
-      if (!nombres || !apellidos  || !direccion || !distrito || !dni || !email || !celular || !password || !valida_password) {
-        errorElement.textContent = "Todos los campos son obligatorios.";
+      if (!nombres || !apellidos || !direccion || !distrito || !dni || !email || !celular || !password || !valida_password) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Campos incompletos',
+          text: 'Todos los campos son obligatorios.'
+        });
         return;
       }
 
       const celularRegex = /^9\d{8}$/;
       if (!celularRegex.test(celular)) {
-        errorElement.textContent = "Número de celular inválido. Debe tener 9 dígitos y empezar con 9.";
+        Swal.fire({
+          icon: 'error',
+          title: 'Celular inválido',
+          text: 'Debe tener 9 dígitos y empezar con 9.'
+        });
         return;
       }
 
       if (password !== valida_password) {
-        errorElement.textContent = "Las contraseñas no coinciden.";
+        Swal.fire({
+          icon: 'error',
+          title: 'Contraseñas no coinciden',
+          text: 'Asegúrate de que ambas contraseñas sean iguales.'
+        });
         return;
       }
 
@@ -37,31 +49,38 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const res = await fetch('http://localhost:3000/usuarios', {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ nombres, apellidos, direccion, distrito, dni, email, celular, password })
         });
 
         const data = await res.json();
 
         if (!res.ok) {
-          errorElement.textContent = data.error || 'Error en el registro';
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en el registro',
+            text: data.error || 'Ocurrió un error al registrar el usuario.'
+          });
           return;
         }
 
-        // Guardar usuario actual en localStorage para la sesión, si quieres
-        localStorage.setItem("currentUser", JSON.stringify({
-          id: data.id,
-          nombres,
-          apellidos,
-          email
-        }));
-
-        alert("Usuario Registrado. Por favor, inicia sesión.")
-        window.location.href = "iniciar_sesion.html";
+        // Mensaje de éxito con redirección
+        Swal.fire({
+          icon: 'success',
+          title: '¡Registro exitoso!',
+          text: 'Tu cuenta ha sido creada. Ahora inicia sesión.',
+          confirmButtonText: 'Ir a iniciar sesión'
+        }).then(() => {
+          window.location.href = "iniciar_sesion.html";
+        });
 
       } catch (error) {
-        errorElement.textContent = "Error al conectar con el servidor.";
         console.error(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error del servidor',
+          text: 'No se pudo conectar con el servidor.'
+        });
       }
     });
   }

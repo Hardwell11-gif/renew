@@ -9,7 +9,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser || !currentUser.id) {
-    alert("Por favor, inicia sesión o regístrate.");
+    await Swal.fire({
+      icon: 'warning',
+      title: 'Por favor, inicia sesión o regístrate.',
+      confirmButtonText: 'OK',
+      allowOutsideClick: false
+    });
     window.location.href = "iniciar_sesion.html";
     return;
   }
@@ -21,7 +26,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!res.ok) throw new Error("Error al obtener datos");
       return await res.json();
     } catch (error) {
-      alert("Error al cargar datos del usuario.");
+      await Swal.fire({
+        icon: 'error',
+        title: 'Error al cargar datos del usuario.',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+      });
       console.error(error);
       return null;
     }
@@ -44,7 +54,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     if (!isLoggedIn) {
-      alert("Debes iniciar sesión para actualizar tu perfil.");
+      await Swal.fire({
+        icon: 'warning',
+        title: 'Debes iniciar sesión para actualizar tu perfil.',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+      });
       window.location.href = "index.html";
       return;
     }
@@ -53,7 +68,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const celularRegex = /^9\d{8}$/;
 
     if (!celularRegex.test(celular)) {
-      alert("Número de celular inválido. Debe tener 9 dígitos y comenzar con 9.");
+      await Swal.fire({
+        icon: 'error',
+        title: 'Número de celular inválido. Debe tener 9 dígitos y comenzar con 9.',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+      });
       return;
     }
 
@@ -69,11 +89,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       if (!res.ok) throw new Error("Error al actualizar datos");
-      alert("Datos actualizados correctamente.");
+
+      await Swal.fire({
+        icon: 'success',
+        title: 'Datos actualizados correctamente.',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+      });
+
       window.location.reload();
 
     } catch (error) {
-      alert("Error al actualizar datos.");
+      await Swal.fire({
+        icon: 'error',
+        title: 'Error al actualizar datos.',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+      });
       console.error(error);
     }
   });
@@ -83,7 +115,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     if (!isLoggedIn) {
-      alert("Debes iniciar sesión para cambiar tu contraseña.");
+      await Swal.fire({
+        icon: 'warning',
+        title: 'Debes iniciar sesión para cambiar tu contraseña.',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+      });
       window.location.href = "index.html";
       return;
     }
@@ -93,7 +130,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const confirmacion = document.getElementById("confirmar_password").value;
 
     if (nueva !== confirmacion) {
-      alert("Las nuevas contraseñas no coinciden.");
+      await Swal.fire({
+        icon: 'error',
+        title: 'Las nuevas contraseñas no coinciden.',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+      });
       return;
     }
 
@@ -107,12 +149,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al cambiar contraseña");
 
-      alert("Contraseña actualizada correctamente.");
+      await Swal.fire({
+        icon: 'success',
+        title: 'Contraseña actualizada correctamente.',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+      });
+
       formCambioPass.reset();
       window.location.reload();
 
     } catch (error) {
-      alert(error.message);
+      await Swal.fire({
+        icon: 'error',
+        title: error.message,
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+      });
       console.error(error);
     }
   });
