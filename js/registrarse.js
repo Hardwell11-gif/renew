@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const errorElement = document.getElementById("error-msg");
 
   if (registerForm) {
-    registerForm.addEventListener("submit", (event) => {
+    registerForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       const nombres = document.getElementById("nombres").value.trim();
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const distrito = document.getElementById("distrito").value.trim();
       const dni = document.getElementById("dni").value.trim();
       const email = document.getElementById("email").value.trim();
-      const celular = document.getElementById("celular").value.trim(); // NUEVO
+      const celular = document.getElementById("celular").value.trim();
       const password = document.getElementById("password").value.trim();
       const valida_password = document.getElementById("valida_password").value.trim();
 
@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Validación del celular peruano
       const celularRegex = /^9\d{8}$/;
       if (!celularRegex.test(celular)) {
         errorElement.textContent = "Número de celular inválido. Debe tener 9 dígitos y empezar con 9.";
@@ -34,40 +33,36 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const users = JSON.parse(localStorage.getItem("users") || "[]");
-      const existingUser = users.find((user) => user.email === email);
+      // Enviar datos al backend
+      try {
+        const res = await fetch('http://localhost:3000/usuarios', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ nombres, apellidos, direccion, distrito, dni, email, celular, password })
+        });
 
-      if (existingUser) {
-        errorElement.textContent = "Este correo electrónico ya está registrado.";
-        return;
+        const data = await res.json();
+
+        if (!res.ok) {
+          errorElement.textContent = data.error || 'Error en el registro';
+          return;
+        }
+
+        // Guardar usuario actual en localStorage para la sesión, si quieres
+        localStorage.setItem("currentUser", JSON.stringify({
+          id: data.id,
+          nombres,
+          apellidos,
+          email
+        }));
+
+        alert("Usuario Registrado. Por favor, inicia sesión.")
+        window.location.href = "iniciar_sesion.html";
+
+      } catch (error) {
+        errorElement.textContent = "Error al conectar con el servidor.";
+        console.error(error);
       }
-
-      const newUser = {
-        id: Date.now().toString(),
-        nombres,
-        apellidos,
-        direccion,
-        distrito,
-        dni,
-        email,
-        celular,
-        password,
-        creadoEl: new Date().toString(),
-        productos: [],
-        productos_pendientes: [],
-      };
-
-      users.push(newUser);
-      localStorage.setItem("users", JSON.stringify(users));
-
-      localStorage.setItem("currentUser", JSON.stringify({
-        id: newUser.id,
-        nombres: newUser.nombres,
-        apellidos: newUser.apellidos,
-        email: newUser.email,
-      }));
-
-      window.location.href = "iniciar_sesion.html";
     });
   }
 });

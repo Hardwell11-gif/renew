@@ -1,57 +1,78 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // 1. Obtener precio desde el div visual (del resumen del producto)
-    const precioDivVisual = document.querySelector("#info_producto #precio_producto");
-    let precioTexto = precioDivVisual?.textContent?.trim().replace(/[^\d.]/g, "");
-    let precioProducto = parseFloat(precioTexto);
+document.addEventListener("DOMContentLoaded", async function () {
+  const resumenVenta = document.querySelector(".resumen_venta");
+  if (!resumenVenta) {
+    console.error("No se encontró el contenedor resumen_venta");
+    return;
+  }
 
-    if (isNaN(precioProducto)) {
-        console.error("Precio no válido o no encontrado.");
-        return;
-    }
+  // 1. Obtener el id del producto desde la URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const productoId = urlParams.get("id");
 
-    // 2. Calcular envío y total
-    const montoEnvio = +(precioProducto * 0.05).toFixed(2);
-    const totalPagar = +(precioProducto + montoEnvio).toFixed(2);
+  if (!productoId) {
+    console.error("No se encontró el id del producto en la URL");
+    return;
+  }
 
-    // 3. Rellenar los inputs y hacerlos readonly
-    const resumenVenta = document.querySelector(".resumen_venta");
+  const backendUrl = "http://localhost:3000";
 
-    const inputPrecio = resumenVenta.querySelector("input#precio_producto");
-    const inputEnvio = resumenVenta.querySelector("input#monto_envio");
-    const inputTotal = resumenVenta.querySelector("input#total_pagar");
+  // 2. Obtener datos del producto desde backend
+  let producto;
+  try {
+    const resProducto = await fetch(`${backendUrl}/productos/${productoId}`);
+    if (!resProducto.ok) throw new Error("Producto no encontrado");
+    producto = await resProducto.json();
+  } catch (error) {
+    console.error("Error al cargar datos del producto:", error);
+    return;
+  }
 
-    inputPrecio.value = precioProducto.toFixed(2);
-    inputEnvio.value = montoEnvio.toFixed(2);
-    inputTotal.value = totalPagar.toFixed(2);
+  // 3. Obtener precio del producto
+  let precioProducto = parseFloat(producto.precioFinal ?? producto.precio ?? 0);
+  if (isNaN(precioProducto)) precioProducto = 0;
 
-    inputPrecio.readOnly = true;
-    inputEnvio.readOnly = true;
-    inputTotal.readOnly = true;
+  // 4. Calcular envío y total
+  const montoEnvio = +(precioProducto * 0.05).toFixed(2);
+  const totalPagar = +(precioProducto + montoEnvio).toFixed(2);
 
-    // 4. Obtener currentUser con dirección y distrito
-    const currentUserJSON = localStorage.getItem("currentUser");
-    if (!currentUserJSON) {
-        console.error("No se encontró el currentUser en localStorage.");
-        return;
-    }
+  // 5. Llenar inputs en resumen
+  resumenVenta.querySelector("input#precio_producto").value = precioProducto.toFixed(2);
+  resumenVenta.querySelector("input#monto_envio").value = montoEnvio.toFixed(2);
+  resumenVenta.querySelector("input#total_pagar").value = totalPagar.toFixed(2);
 
-    let currentUser;
-    try {
-        currentUser = JSON.parse(currentUserJSON);
-    } catch (e) {
-        console.error("Error al parsear currentUser:", e);
-        return;
-    }
+  // Hacer readonly
+  resumenVenta.querySelector("input#precio_producto").readOnly = true;
+  resumenVenta.querySelector("input#monto_envio").readOnly = true;
+  resumenVenta.querySelector("input#total_pagar").readOnly = true;
 
-    // 5. Rellenar dirección y distrito
+  // 6. Obtener currentUser desde localStorage
+  const currentUserJSON = localStorage.getItem("currentUser");
+  if (!currentUserJSON) {
+    console.error("No se encontró currentUser en localStorage");
+    return;
+  }
+
+  let currentUser;
+  try {
+    currentUser = JSON.parse(currentUserJSON);
+  } catch (e) {
+    console.error("Error al parsear currentUser:", e);
+    return;
+  }
+
+  // 7. Hacer fetch para obtener datos actualizados del usuario
+  try {
+    const resUsuario = await fetch(`${backendUrl}/usuario/${currentUser.id}`);
+    if (!resUsuario.ok) throw new Error("No se pudo obtener datos del usuario");
+    const usuario = await resUsuario.json();
+
+    // 8. Llenar dirección y distrito
     const direccionInput = resumenVenta.querySelector("input#direccion_comprador");
     const distritoSelect = resumenVenta.querySelector("select#distrito");
 
-    if (currentUser.direccion) {
-        direccionInput.value = currentUser.direccion;
-    }
-
-    if (currentUser.distrito) {
-        distritoSelect.value = currentUser.distrito;
-    }
+    if (direccionInput && usuario.direccion) direccionInput.value = usuario.direccion;
+    if (distritoSelect && usuario.distrito) distritoSelect.value = usuario.distrito;
+  } catch (error) {
+    console.error("Error al obtener usuario de BD:", error);
+  }
 });

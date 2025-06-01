@@ -2,48 +2,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginform = document.getElementById("loginform");
   const errorElement = document.getElementById("error");
 
-  loginform.addEventListener("submit", (event) => {
+  loginform.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
     errorElement.textContent = "";
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const existingUser = users.find(user => user.email === email);
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, password })
+      });
 
-    if (!existingUser) {
-      errorElement.textContent = "Correo no registrado.";
-      return;
-    }
+      const data = await response.json();
 
-    if (existingUser.password !== password) {
-      errorElement.textContent = "Contraseña incorrecta.";
-      return;
-    }
+      if (!response.ok) {
+        errorElement.textContent = data.error || "Error al iniciar sesión";
+        return;
+      }
 
-    // Guardar al usuario activo
-    localStorage.setItem("currentUser", JSON.stringify({
-      id: existingUser.id,
-      nombres: existingUser.nombres,
-      apellidos: existingUser.apellidos,
-      email: existingUser.email,
-      direccion: existingUser.direccion,
-      distrito: existingUser.distrito
-    }));
+      // Guardar usuario activo
+      localStorage.setItem("currentUser", JSON.stringify(data.user));
+      localStorage.setItem("isLoggedIn", "true");
 
-    // Marcar como logueado
-    localStorage.setItem("isLoggedIn", "true");
+      // Redirección
+      const params = new URLSearchParams(window.location.search);
+      const redirectURL = params.get('redirect');
 
-    // Obtener el parámetro 'redirect' de la URL
-    const params = new URLSearchParams(window.location.search);
-    const redirectURL = params.get('redirect');
+      alert("Bienvenido! Espero que estes bien 😊")
+      window.location.href = redirectURL ? decodeURIComponent(redirectURL) : "index.html";
 
-    // Redirigir a la URL original si existe, si no, al index
-    if (redirectURL) {
-      window.location.href = decodeURIComponent(redirectURL);
-    } else {
-      window.location.href = "index.html";
+    } catch (error) {
+      errorElement.textContent = "No se pudo conectar al servidor.";
+      console.error(error);
     }
   });
 });

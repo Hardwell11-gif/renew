@@ -1,100 +1,119 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const nombreInput = document.getElementById("nombre");
-    const direccionInput = document.getElementById("direccion");
-    const distritoInput = document.getElementById("distrito");
-    const celularInput = document.getElementById("celular");
-    const emailInput = document.getElementById("email");
-    const formPerfil = document.getElementById("formPerfil");
-    const formCambioPass = document.getElementById("formCambioPass");
+document.addEventListener("DOMContentLoaded", async () => {
+  const nombreInput = document.getElementById("nombre");
+  const direccionInput = document.getElementById("direccion");
+  const distritoInput = document.getElementById("distrito");
+  const celularInput = document.getElementById("celular");
+  const emailInput = document.getElementById("email");
+  const formPerfil = document.getElementById("formPerfil");
+  const formCambioPass = document.getElementById("formCambioPass");
 
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser || !currentUser.id) {
+    alert("Por favor, inicia sesión o regístrate.");
+    window.location.href = "iniciar_sesion.html";
+    return;
+  }
 
-    if (!currentUser) {
-        alert("Por favor, inicia sesión o registrate.");
-        window.location.href = "iniciar_sesion.html";
-        return;
+  // Función para obtener datos usuario desde backend
+  async function obtenerUsuario() {
+    try {
+      const res = await fetch(`http://localhost:3000/usuarios/${currentUser.id}`);
+      if (!res.ok) throw new Error("Error al obtener datos");
+      return await res.json();
+    } catch (error) {
+      alert("Error al cargar datos del usuario.");
+      console.error(error);
+      return null;
+    }
+  }
+
+  // Cargar datos usuario
+  const usuario = await obtenerUsuario();
+  if (!usuario) return;
+
+  nombreInput.value = usuario.nombres + " " + usuario.apellidos;
+  nombreInput.readOnly = true;
+  direccionInput.value = usuario.direccion;
+  distritoInput.value = usuario.distrito;
+  celularInput.value = usuario.celular;
+  emailInput.value = usuario.email;
+  emailInput.readOnly = true;
+
+  formPerfil.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+      alert("Debes iniciar sesión para actualizar tu perfil.");
+      window.location.href = "index.html";
+      return;
     }
 
-    const usuario = users.find(user => user.id === currentUser.id);
-    if (!usuario) {
-        alert("Usuario no encontrado.");
-        return;
+    const celular = celularInput.value.trim();
+    const celularRegex = /^9\d{8}$/;
+
+    if (!celularRegex.test(celular)) {
+      alert("Número de celular inválido. Debe tener 9 dígitos y comenzar con 9.");
+      return;
     }
 
-    nombreInput.value = usuario.nombres + " " + usuario.apellidos;
-    nombreInput.readOnly = true;
-    direccionInput.value = usuario.direccion;
-    distritoInput.value = usuario.distrito;
-    celularInput.value = usuario.celular;
-    emailInput.value = usuario.email;
-    emailInput.readOnly = true;
+    try {
+      const res = await fetch(`http://localhost:3000/usuarios/${currentUser.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          direccion: direccionInput.value,
+          distrito: distritoInput.value,
+          celular: celular
+        }),
+      });
 
-    formPerfil.addEventListener("submit", (e) => {
-        e.preventDefault();
+      if (!res.ok) throw new Error("Error al actualizar datos");
+      alert("Datos actualizados correctamente.");
+      window.location.reload();
 
-        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-        if (!isLoggedIn) {
-            alert("Debes iniciar seesión para actualizar tu perfil.");
-            window.location.href = "index.html"
-            return;
-        }
+    } catch (error) {
+      alert("Error al actualizar datos.");
+      console.error(error);
+    }
+  });
 
-        const celular = celularInput.value.trim();
-        const celularRegex = /^9\d{8}$/;
+  formCambioPass.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-        if (!celularRegex.test(celular)) {
-            alert("Número de celular inválido. Debe tener 9 dígitos y comenzar con 9.");
-            window.location.reload();
-            return;
-        }
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+      alert("Debes iniciar sesión para cambiar tu contraseña.");
+      window.location.href = "index.html";
+      return;
+    }
 
-        usuario.celular = celular;
-        usuario.direccion = direccionInput.value;
-        usuario.distrito = distritoInput.value;
+    const actual = document.getElementById("actual_password").value;
+    const nueva = document.getElementById("nueva_password").value;
+    const confirmacion = document.getElementById("confirmar_password").value;
 
-        localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("currentUser", JSON.stringify({
-            id: usuario.id,
-            nombres: usuario.nombres,
-            apellidos: usuario.apellidos,
-            email: usuario.email,
-            direccion: usuario.direccion,
-            distrito: usuario.distrito
-        }));
+    if (nueva !== confirmacion) {
+      alert("Las nuevas contraseñas no coinciden.");
+      return;
+    }
 
-        alert("Datos actualizados correctamente.");
-        window.location.href = "perfil.html";
-    });
+    try {
+      const res = await fetch(`http://localhost:3000/usuarios/${currentUser.id}/password`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ actual, nueva }),
+      });
 
-    formCambioPass.addEventListener("submit", (e) => {
-        e.preventDefault();
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al cambiar contraseña");
 
-        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-        if (!isLoggedIn) {
-            alert("Debes iniciar sesión para cambiar tu contraseña.");
-            window.location.href = "index.html"            
-            return;
-        }
+      alert("Contraseña actualizada correctamente.");
+      formCambioPass.reset();
+      window.location.reload();
 
-        const actual = document.getElementById("actual_password").value;
-        const nueva = document.getElementById("nueva_password").value;
-        const confirmacion = document.getElementById("confirmar_password").value;
-
-        if (actual !== usuario.password) {
-            alert("La contraseña actual es incorrecta.");
-            return;
-        }
-
-        if (nueva !== confirmacion) {
-            alert("Las nuevas contraseñas no coinciden.");
-            return;
-        }
-
-        usuario.password = nueva;
-        localStorage.setItem("users", JSON.stringify(users));
-        alert("Contraseña actualizada correctamente.");
-        formCambioPass.reset();
-        window.location.href = "perfil.html";
-    });
+    } catch (error) {
+      alert(error.message);
+      console.error(error);
+    }
+  });
 });

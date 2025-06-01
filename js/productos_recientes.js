@@ -1,59 +1,91 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const contenedor = document.querySelector('.productos');
-    const productos = JSON.parse(localStorage.getItem('productos')) || [];
+document.addEventListener('DOMContentLoaded', async function () {
+  const contenedor = document.querySelector('.productos');
+  const backendUrl = 'http://localhost:3000';
 
-    const maxTotal = 4;
-    const productosNuevos = productos.slice(-maxTotal).reverse(); // últimos nuevos
+  if (!contenedor) {
+    console.error('No se encontró el contenedor .productos');
+    return;
+  }
 
-    // Insertar nuevos primero
-    productosNuevos.forEach(producto => {
-        const productoDiv = document.createElement('div');
-        productoDiv.classList.add('producto');
+  let productos = [];
 
-        productoDiv.innerHTML = `   
-            <div class="prenda">
-                    <img class="imageprenda" src="${producto.imagen}" alt="prenda">
-            </div>
-            <div class="info_prenda">
-                <h3>${producto.nombre}</h3>
-                <div class="precio_prenda">
-                    <p>S/ ${producto.precioFinal}</p>
-                </div>
-                <div class="precio_prenda">
-                    <span>${producto.estado}</span>
-                    <span>${producto.categoria}</span>
-                    <span>${producto.genero}</span>              
-                </div>   
-                <div class="vendedor">
-                    <span>${producto.vendedor}</span>     
-                </div>
-            </div>
-            <button class="boton_agregar" data-index="${productos.indexOf(producto)}">
-                Lo quiero!
-            </button>
-        `;
-
-        contenedor.appendChild(productoDiv);
-    });
-
-    const productosRenderizados = contenedor.querySelectorAll('.producto');
-    if (productosRenderizados.length > maxTotal) {
-        const extras = productosRenderizados.length - maxTotal;
-        for (let i = 0; i < extras; i++) {
-            contenedor.lastElementChild.remove();
-        }
+  async function obtenerProductos() {
+    try {
+      const response = await fetch(`${backendUrl}/productos`);
+      productos = await response.json();
+      mostrarProductos(productos);
+    } catch (error) {
+      console.error("Error al cargar productos:", error);
+      contenedor.innerHTML = '<p style="text-align: center;">No se pudieron cargar los productos.</p>';
     }
+  }
 
-    // Evento de clic para "Lo quiero"
-    contenedor.addEventListener('click', function (e) {
-        const boton = e.target.closest('.boton_agregar');
-        if (boton) {
-            const index = boton.getAttribute('data-index');
-            if (index !== null) {
-                const productoSeleccionado = productos[index];
-                localStorage.setItem('productoSeleccionado', JSON.stringify(productoSeleccionado));
-                window.location.href = 'detalles_producto.html';
-            }
-        }
+  function mostrarProductos(productos) {
+    contenedor.innerHTML = '';
+
+    productos.forEach((producto, index) => {
+      const productoDiv = document.createElement('div');
+      productoDiv.classList.add('producto');
+
+      let imagenSrc = producto.imagen || '';
+
+      if (
+        imagenSrc &&
+        !imagenSrc.startsWith('http://') &&
+        !imagenSrc.startsWith('https://')
+      ) {
+        if (!imagenSrc.startsWith('/')) imagenSrc = '/uploads/' + imagenSrc;
+        else if (!imagenSrc.startsWith('/uploads/')) imagenSrc = '/uploads' + imagenSrc;
+        imagenSrc = backendUrl + imagenSrc;
+      }
+
+      // Obtener precio (intenta varios posibles nombres de propiedad)
+      let precio = producto.precioFinal ?? producto.precio ?? producto.price ?? 0;
+
+      // Validar y formatear precio a dos decimales
+      if (typeof precio === 'string') {
+        precio = parseFloat(precio);
+      }
+      if (isNaN(precio)) {
+        console.warn(`Precio inválido para producto ${producto.nombre}:`, producto.precioFinal);
+        precio = 0;
+      }
+      const precioFormateado = precio.toFixed(2);
+
+      productoDiv.innerHTML = `
+        <div class="prenda">
+          <img class="imageprenda" src="${imagenSrc}" alt="Imagen de ${producto.nombre || 'producto'}">
+        </div>
+        <div class="info_prenda">
+          <h3>${producto.nombre || 'Sin nombre'}</h3>
+          <div class="precio_prenda">
+            <p>S/ ${precioFormateado}</p>
+          </div>
+          <div class="precio_prenda">
+            <span>${producto.estado || 'N/A'}</span>
+            <span>${producto.categoria || 'N/A'}</span>
+            <span>${producto.genero || 'N/A'}</span>              
+          </div>   
+          <div class="vendedor">
+            <span>${producto.vendedor || 'N/A'}</span>     
+          </div>
+        </div>
+        <button class="boton_agregar" data-id="${producto.id}">
+          Lo quiero!
+        </button>
+      `;
+
+      contenedor.appendChild(productoDiv);
     });
+
+    contenedor.addEventListener('click', function (e) {
+      const boton = e.target.closest('.boton_agregar');
+      if (boton) {
+        const id = boton.getAttribute('data-id')
+        window.location.href = 'detalles_producto.html?id='+id;
+      }
+    });
+  }
+
+  await obtenerProductos();
 });

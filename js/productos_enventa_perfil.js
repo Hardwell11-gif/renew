@@ -1,78 +1,81 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const listaProductos = document.querySelector('.lista_productos');
-    const productos = JSON.parse(localStorage.getItem('productos')) || [];
+document.addEventListener('DOMContentLoaded', async function () {
+  const listaProductos = document.querySelector('.lista_productos');
+  const backendUrl = 'http://localhost:3000';
 
-    // Obtener el usuario actual
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser || !currentUser.id) {
+    alert("Por favor, inicia sesión.");
+    window.location.href = "iniciar_sesion.html";
+    return;
+  }
 
-    if (!currentUser) {
-        alert("Por favor, inicia sesión.");
-        window.location.href = "iniciar_sesion.html";
-        return;
-    }
+  // Limpiar el contenedor
+  listaProductos.innerHTML = '';
 
-    const usuario = users.find(user => user.id === currentUser.id);
-    if (!usuario) {
-        alert("Usuario no encontrado.");
-        return;
-    }
-
-    const nombreCompleto = usuario.nombres + " " + usuario.apellidos;
-
-    // Limpia el contenedor por si acaso
-    listaProductos.innerHTML = '';
-
-    // Filtrar productos por vendedor (el usuario actual)
-    const productosDelUsuario = productos.filter(producto => producto.vendedor === nombreCompleto);
+  try {
+    const res = await fetch(`${backendUrl}/productos/vendedor/${currentUser.id}`);
+    if (!res.ok) throw new Error('Error al cargar productos');
+    const productosDelUsuario = await res.json();
 
     productosDelUsuario.forEach((producto, index) => {
-        const productoDiv = document.createElement('div');
-        productoDiv.classList.add('producto');
+      // Construir URL completa de la imagen si no la tiene
+      let imagenSrc = producto.imagen || '';
+      if (imagenSrc && !imagenSrc.startsWith('http://') && !imagenSrc.startsWith('https://')) {
+        // Asumiendo que las imágenes están en /uploads/
+        if (!imagenSrc.startsWith('/')) imagenSrc = '/uploads/' + imagenSrc;
+        imagenSrc = backendUrl + imagenSrc;
+      }
 
-        productoDiv.innerHTML = `
-            <a href="#">
-                <div class="prenda">
-                    <img class="imageprenda" src="${producto.imagen}" alt="prenda">
-                </div>
-            </a>
-            <div class="info_prenda">
-                <a href="#">
-                    ${producto.nombre}
-                </a>
-                <div class="precio_prenda">
-                    <p>S/ ${producto.precioFinal}</p>
-                </div>
-                <div class="precio_prenda">
-                    <span>${producto.estado}</span>
-                    <span>${producto.categoria}</span>
-                    <span>${producto.genero}</span>              
-                </div>   
-                <div class="vendedor">
-                    <span>${producto.vendedor}</span>     
-                </div>
-            </div>
-            <button class="boton_agregar" data-index="${index}">
-                eliminar
-            </button>
-            <button class="boton_agregar" data-index="${index}">
-                vendido 
-            </button>        
-        `;
+      productoDiv = document.createElement('div');
+      productoDiv.classList.add('producto');
 
-        listaProductos.appendChild(productoDiv);
+      productoDiv.innerHTML = `
+        <a href="#">
+          <div class="prenda">
+            <img class="imageprenda" src="${imagenSrc}" alt="prenda">
+          </div>
+        </a>
+        <div class="info_prenda">
+          <a href="#">${producto.nombre || 'Sin nombre'}</a>
+          <div class="precio_prenda">
+            <p>S/ ${producto.precio !== undefined ? producto.precio : producto.precioFinal || '0'}</p>
+          </div>
+          <div class="precio_prenda">
+            <span>${producto.estado || 'N/A'}</span>
+            <span>${producto.categoria || 'N/A'}</span>
+            <span>${producto.genero || 'N/A'}</span>              
+          </div>   
+          <div class="vendedor">
+            <span>${producto.vendedor || 'N/A'}</span>     
+          </div>
+        </div>
+        <button class="boton_eliminar" data-index="${index}">Eliminar</button>
+        <button class="boton_vendido" data-index="${index}">Vendido</button>        
+      `;
+
+      listaProductos.appendChild(productoDiv);
     });
 
-    // Evento de clic para detectar cuál botón fue presionado
+    // Eventos para botones específicos (Eliminar y Vendido)
     listaProductos.addEventListener('click', function (e) {
-        const boton = e.target.closest('.boton_agregar');
-        if (boton) {
-            const index = boton.getAttribute('data-index');
-            if (index !== null) {
-                const productoSeleccionado = productosDelUsuario[index];
-                localStorage.setItem('productoSeleccionado', JSON.stringify(productoSeleccionado));
-                window.location.href = 'detalles_producto.html';
-            }
+      if (e.target.classList.contains('boton_eliminar')) {
+        const index = e.target.getAttribute('data-index');
+        if (index !== null) {
+          // Aquí puedes llamar a una función para eliminar el producto
+          alert(`¿Estas seguro de eliminar este producto?`);
         }
+      }
+      if (e.target.classList.contains('boton_vendido')) {
+        const index = e.target.getAttribute('data-index');
+        if (index !== null) {
+          // Aquí puedes llamar a una función para marcar como vendido
+          alert(`Marcar como vendido producto con índice ${index}`);
+        }
+      }
     });
+
+  } catch (error) {
+    alert("Error al cargar productos.");
+    console.error(error);
+  }
 });

@@ -1,12 +1,16 @@
-const formulario = document.getElementById("formProducto");
+document.addEventListener('DOMContentLoaded', () => {
+  const formulario = document.getElementById('formProducto');
+  if (!formulario) {
+    console.error("No se encontró el formulario con id 'formProducto'");
+    return;
+  }
 
-formulario.addEventListener('submit', function (event) {
+  formulario.addEventListener('submit', async function (event) {
     event.preventDefault();
-
     const submitButton = formulario.querySelector('button[type="submit"]');
     if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.textContent = 'Guardando...'; 
+      submitButton.disabled = true;
+      submitButton.textContent = 'Guardando...';
     }
 
     const nombre = document.getElementById('nombre').value;
@@ -20,84 +24,76 @@ formulario.addEventListener('submit', function (event) {
     const errorImagenSecundaria = document.getElementById('imagen_2_error');
 
     if (!nombre || !categoria || !estado || !genero || !precioOriginal || !descripcion || !imagenFile) {
-        alert("Por favor, completa todos los campos.");
-        if (submitButton) submitButton.disabled = false;
-        return;
+      alert("Por favor, completa todos los campos.");
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Guardar';
+      }
+      return;
     }
 
     if (imagenesSecundarias.length !== 3) {
-        errorImagenSecundaria.textContent = "Debes subir exactamente 3 imágenes secundaria.";
-        if (submitButton) submitButton.disabled = false;
-        return;
+      errorImagenSecundaria.textContent = "Debes subir exactamente 3 imágenes secundarias.";
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Guardar';
+      }
+      return;
     } else {
-        errorImagenSecundaria.textContent = "";
+      errorImagenSecundaria.textContent = "";
     }
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) {
-        alert("No se encontró el usuario en sesión. Inicia sesión para publicar.");
-        if (submitButton) submitButton.disabled = false;
-        return;
+      alert("No se encontró el usuario en sesión. Inicia sesión para publicar.");
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Guardar';
+      }
+      return;
     }
 
-    const nombreVendedor = `${currentUser.nombres} ${currentUser.apellidos || ''}`.trim();
     const precioFinal = (precioOriginal * 1.1).toFixed(2);
 
-    convertirAWebP(imagenFile).then(base64Image => {
-        const promesasSecundarias = Array.from(imagenesSecundarias).map(file => convertirAWebP(file));
-        Promise.all(promesasSecundarias).then(imagenesSecundariasBase64 => {
-            guardarProducto(base64Image, imagenesSecundariasBase64);
-        }).catch(error => {
-            alert("Error al procesar imágenes secundarias.");
-            if (submitButton) submitButton.disabled = false;
-        });
-    }).catch(error => {
-        alert("Error al procesar la imagen principal.");
-        if (submitButton) submitButton.disabled = false;
-    });
+    try {
+      const formData = new FormData();
 
-    function convertirAWebP(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const img = new Image();
-                img.onload = function () {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    const webpDataUrl = canvas.toDataURL('image/webp', 0.8);
-                    resolve(webpDataUrl);
-                };
-                img.onerror = reject;
-                img.src = e.target.result;
-            };
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-        });
+      formData.append('nombre', nombre);
+      formData.append('categoria', categoria);
+      formData.append('estado', estado);
+      formData.append('genero', genero);
+      formData.append('precioFinal', precioFinal);
+      formData.append('descripcion', descripcion);
+      formData.append('vendedor_id', currentUser.id);
+      formData.append('imagen', imagenFile);
+
+      for (let i = 0; i < imagenesSecundarias.length; i++) {
+        formData.append('imagenesSecundarias', imagenesSecundarias[i]);
+      }
+
+      const response = await fetch("http://localhost:3000/productos", {
+        method: "POST",
+        body: formData  // No ponemos Content-Type, el navegador lo asigna con boundary
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Error al guardar el producto.");
+      }
+
+      alert("Producto agregado exitosamente. Recuerda que tu producto se publicará con un precio del 10% más.");
+      formulario.reset();
+      window.location.href = 'productos.html';
+
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Ocurrió un error al guardar el producto.");
     }
 
-    function guardarProducto(imagenPrincipalBase64, imagenesSecBase64) {
-        const nuevoProducto = {
-            nombre,
-            categoria,
-            estado,
-            genero,
-            precioFinal,
-            descripcion,
-            imagen: imagenPrincipalBase64,
-            imagenesSecundarias: imagenesSecBase64,
-            vendedor: nombreVendedor
-        };
-
-        let productos = JSON.parse(localStorage.getItem('productos')) || [];
-        productos.push(nuevoProducto);
-        localStorage.setItem('productos', JSON.stringify(productos));
-
-        // Redirigir inmediatamente
-        alert("Producto agregado exitosamente.Recuerda que tu producto se publicará con un precio del 10% más.");
-        formulario.reset();
-        window.location.href = 'productos.html';
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Guardar';
     }
+  });
 });
