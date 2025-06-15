@@ -321,6 +321,7 @@ app.delete('/productos/:id', (req, res) => {
       res.json({ message: 'Producto e imágenes eliminados correctamente' });
     });
   });
+  
 });
 
 // --- INICIO SERVIDOR ---

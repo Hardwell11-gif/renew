@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(result.error || "Error al guardar el producto.");
       }
 
-      alert("Producto agregado exitosamente. Recuerda que tu producto se publicará con un precio del 10% más.");
+      alert("Producto agregado exitosamente. Recuerda que se evaluará la calidad y luego se publicará con un precio del 10% más.");
       formulario.reset();
       window.location.href = 'productos.html';
 

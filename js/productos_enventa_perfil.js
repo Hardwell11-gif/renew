@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             </div>
           </a>
           <div class="info_prenda">
-            <a href="#">${producto.nombre || 'Sin nombre'}</a>
+            <a class="a1" href="#">${producto.nombre || 'Sin nombre'}</a>
             <div class="precio_prenda">
               <p>S/ ${producto.precio !== undefined ? producto.precio : producto.precioFinal || '0'}</p>
             </div>

@@ -75,4 +75,18 @@ document.addEventListener("DOMContentLoaded", async function () {
   } catch (error) {
     console.error("Error al obtener usuario de BD:", error);
   }
+
+  document.getElementById("boton_pagar").addEventListener("click", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const productoId = urlParams.get("id");
+
+  if (!productoId) {
+    console.error("No se encontró el id del producto para redirigir a la pasarela");
+    return;
+  }
+
+  // Redirigir a pasarela_pagos.html con el id del producto como parámetro
+  window.location.href = `pasarela_pago.html?id=${productoId}`;
+});
+
 });

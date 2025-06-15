@@ -40,7 +40,15 @@ body {
   justify-content: center;
 }
 
-a{
+a.a1{
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  font-size:clamp(2rem, 2vw, 4rem);
+  text-align: center;
+}
+
+a.a2{
   text-decoration: none;
   color: black;
   cursor: pointer;

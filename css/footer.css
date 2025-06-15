@@ -17,9 +17,15 @@ ul{
     list-style: none;
 }
 
-a{
+a.li{
     color: black;
+    cursor: pointer;
 }   
+
+a.li:hover{
+    color: white;
+    transition: ease-in-out 0.5s;
+}
 
 .div1footer{
     background-color: var(--color-principal);
