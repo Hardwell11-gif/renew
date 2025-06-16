@@ -47,17 +47,40 @@ const upload = multer({ storage });
 app.use('/uploads', express.static(uploadDir));
 
 // Configuración MySQL
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Admin123',
-  database: 'renew_BD'
-});
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'Admin123',
+//   database: 'renew_BD'
+// });
 
-db.connect(err => {
-  if (err) console.error('❌ Error de conexión:', err);
-  else console.log('✅ Conectado a la BD');
+// db.connect(err => {
+//   if (err) console.error('❌ Error de conexión:', err);
+//   else console.log('✅ Conectado a la BD');
+// });
+
+const { Pool } = require('pg');
+ 
+// Reemplaza estos datos con los de tu Supabase
+const pool = new Pool({
+  host: 'db.nftsdgwpmkdlqltecisr.supabase.co',
+  port: 5432,
+  user: 'postgres',         // normalmente: 'postgres'
+  password: 'Elpepep11?renew',
+  database: 'postgres',         // Supabase usa 'postgres' por defecto
+  ssl: { rejectUnauthorized: false } // necesario para conexiones SSL
 });
+ 
+// Prueba la conexión
+pool.connect((err, client, release) => {
+  if (err) {
+    return console.error('❌ Error de conexión:', err.stack);
+  }
+  console.log('✅ Conectado a la BD de Supabase');
+  release(); // liberar el cliente después de la prueba
+});
+ 
+module.exports = pool; // para usarlo en otros archivos
 
 // --- RUTAS ---
 

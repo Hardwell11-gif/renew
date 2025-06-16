@@ -16,5 +16,8 @@
     "url": "https://github.com/Hardwell11-gif/renew/issues"
   },
   "homepage": "https://github.com/Hardwell11-gif/renew#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "pg": "^8.16.0"
+  }
 }
