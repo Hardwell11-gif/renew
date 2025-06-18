@@ -14,6 +14,7 @@
 <body>
   <div class="payment-container">
     <h2>Payment</h2>
+    
     <div class="form-group">
       <label for="numero">Número de tarjeta</label>
       <input type="text" id="numero" placeholder="1234 5678 9012 3456" maxlength="19">
@@ -37,7 +38,21 @@
     <button id="boton_pagar" class="btn-pagar">Pagar</button>
 
     <div class="mensaje" id="mensaje"></div>
+
+    <!-- Sección para Yape -->
+    <div class="yape-section">
+      <h3>O paga con Yape</h3>
+      <div class="qr-container">
+        <img src="img/codigoqr.jpg" alt="Código QR de Yape" class="qr-image">
+      </div>
+      <div class="form-group">
+        <label for="codigo_yape">Código de validación</label>
+        <input type="text" id="codigo_yape" placeholder="Ingresa el código que aparece al pagar">
+      </div>
+      <button id="validar_yape" class="btn-validar">Validar Código</button>
+    </div>
   </div>
+
   <script src="js/pasarela_pago.js"></script>
 </body>
 </html>
