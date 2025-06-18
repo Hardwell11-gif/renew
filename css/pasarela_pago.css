@@ -107,3 +107,12 @@ body {
     max-width: 400px;
   }
 }
+
+.precio-producto {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: #444;
+  margin: 15px 0;
+}
+

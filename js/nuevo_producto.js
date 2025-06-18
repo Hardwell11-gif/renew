@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const precioFinal = (precioOriginal * 1.1).toFixed(2);
+    const precioFinal = (precioOriginal * 1.0).toFixed(2);
 
     try {
       const formData = new FormData();

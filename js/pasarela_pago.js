@@ -53,10 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
       text: 'Gracias por tu compra. Te enviaremos un correo con los detalles.',
       icon: 'success',
       confirmButtonText: 'Continuar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await eliminarProductoYRedirigir();
+    }).then(async () => {
+      await eliminarProducto();
+
+      // Enviar mensaje a la pestaña que abrió esta ventana
+      if (window.opener) {
+        window.opener.postMessage("pago_completado", "*");
       }
+
+      // Cerrar esta pestaña
+      window.close();
     });
   });
 
@@ -78,21 +84,27 @@ document.addEventListener("DOMContentLoaded", () => {
       text: 'Gracias por tu compra. Te enviaremos un correo con los detalles.',
       icon: 'success',
       confirmButtonText: 'Continuar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await eliminarProductoYRedirigir();
+    }).then(async () => {
+      await eliminarProducto();
+
+      // Enviar mensaje a la pestaña que abrió esta ventana
+      if (window.opener) {
+        window.opener.postMessage("pago_completado", "*");
       }
+
+      // Cerrar esta pestaña
+      window.close();
     });
   });
 
-  // Función para eliminar producto y redirigir
-  async function eliminarProductoYRedirigir() {
+  // Función para eliminar producto
+  async function eliminarProducto() {
     const urlParams = new URLSearchParams(window.location.search);
     const productoId = urlParams.get("id");
 
     if (!productoId) {
       console.error("No se encontró el ID del producto para eliminar.");
-      return window.location.href = "index.html";
+      return;
     }
 
     try {
@@ -104,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error("No se pudo eliminar el producto del backend.");
       }
 
-      window.location.href = "index.html";
     } catch (error) {
       console.error("Error al eliminar el producto:", error);
       Swal.fire("Error", "No se pudo eliminar el producto del servidor.", "error");

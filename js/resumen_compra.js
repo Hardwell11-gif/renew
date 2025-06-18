@@ -85,9 +85,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     return;
   }
 
-  // Redirigir a pasarela_pagos.html con el id del producto como parámetro
-  window.location.href = `pasarela_pago.html?id=${productoId}`;
+  window.open(`pasarela_pago.html?id=${productoId}`, "_blank");
   //http://link.mercadopago.com.pe/renewperu
+
+  window.addEventListener("message", function (event) {
+    if (event.data === "pago_completado") {
+      window.location.href = "productos.html";
+    }
+  });
+  
 });
 
 });
