@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Cómo usar</title>
+  <meta name="theme-color" content="#6b8678">
+  <meta name="description" content="Aplicación para la compra, venta y alquiler de ropa de segunda mano.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/como_usar.css">
+  <link rel="icon" href="img/marca_renew.webp" type="image/webp">  
+</head>
+<body>
+    <section class="navbar" id="navbar">
+        <div id="nav"></div>
+        <script src="js/header.js"></script>
+    </section>       
+    <section class="como_usar" id="como-usar">
+    <h1>Cómo usar la aplicación web</h1>
+
+    <p>Se explican las pestañas, secciones, función de los botones y casos dentro de la aplicación web. El objetivo es explicar la navegación y que los usuarios puedan solventar dudas.</p>
+
+    <h2>Máster page</h2>
+    <p>El máster page de la página refiere al contenido que se mantiene estático la mayoría del tiempo; aún si se cambia de secciones dentro de la aplicación web, este mantiene la misma ubicación dentro de la pantalla que se muestra. El máster page contiene:</p>
+    <ul>
+        <li><strong>Header:</strong> Muestra el nombre de la marca, un botón “iniciar sesión” y las opciones “inicio”, “productos” y “vender” que redirigen a las pestañas respectivas.</li>
+        <li><strong>Footer:</strong> Muestra el nombre de la marca, resumen de lo que se hace en la app, enlaces a las opciones de “inicio”, “productos” y “vender”, y una sección de ayuda con “Cómo funciona”, “Contacto” y “Términos y condiciones”.</li>
+    </ul>
+
+    <h2>Botón “Iniciar sesión”</h2>
+    <p>Redirige a la pestaña “iniciar sesión” donde el usuario puede iniciar sesión con su correo y contraseña. Si requiere registrarse, puede hacerlo desde un formulario. Al iniciar sesión, el usuario es redirigido a la pestaña “Inicio” y el botón cambia por “Mi perfil” y “Cerrar sesión”.</p>
+
+    <h2>Botón “Mi perfil”</h2>
+    <p>Redirige a una pestaña con tres secciones:</p>
+    <ul>
+        <li><strong>Datos personales:</strong> Muestra y permite editar nombre, dirección, distrito, celular y correo electrónico.</li>
+        <li><strong>Cambiar contraseña:</strong> Solicita la contraseña actual y la nueva.</li>
+        <li><strong>Productos que vendo:</strong> Muestra los productos en venta con opción para eliminarlos.</li>
+    </ul>
+
+    <h2>Pestaña “Inicio”</h2>
+    <p>Es la sección inicial que incluye:</p>
+    <ul>
+        <li><strong>Sección portada (Hero):</strong> Presenta el objetivo de la app con botones “Ver productos” y “Vender mi ropa”.</li>
+        <li><strong>Categorías:</strong> Filtros con cuatro categorías que redirigen a la pestaña de productos.</li>
+        <li><strong>Productos recientes:</strong> Muestra los cuatro últimos productos puestos a la venta, con opción a ver detalles mediante el botón “Lo quiero”.</li>
+    </ul>
+
+    <h2>Pestaña “Productos”</h2>
+    <p>Muestra todos los productos en venta con información detallada y botón “¡Lo quiero!” que redirige a la pestaña de detalles. Incluye filtros por categoría, género o ambos.</p>
+
+    <h2>Botón “Lo compro”</h2>
+    <p>Presenta dos escenarios:</p>
+    <ul>
+        <li>Si el comprador es también el vendedor, se muestra una alerta y se redirige a “Productos que vendo”.</li>
+        <li>Si es otro usuario, se redirige a “Resumen de compra” con detalles del pedido, dirección editable, total a pagar y un botón “Pagar” que lleva a la pasarela de pagos.</li>
+    </ul>
+
+    <h2>Caso de compra</h2>
+    <p>Una vez realizado el pago, el producto desaparece de la pestaña “productos” y de “productos que vendo” del perfil del vendedor.</p>
+
+    <h2>Pestaña “Vender”</h2>
+    <p>Requiere sesión iniciada. Muestra un formulario para agregar una prenda, incluyendo nombre, categoría, estado, género, precio, descripción, foto principal y fotos secundarias. El formulario valida los datos antes de enviarse.</p>
+    <p>Si se completa correctamente, se muestra una alerta con el mensaje: “Producto agregado exitosamente. Recuerda que se evaluará la calidad y luego se publicará con un precio del 10% más.” Luego se redirige al usuario a la pestaña “Productos”.</p>
+    </section>
+    <section class="footer" id="footer">
+        <div id="footer"></div>
+        <script src="js/footer.js"></script>
+    </section>    
+</body> 

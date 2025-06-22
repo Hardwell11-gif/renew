@@ -86,7 +86,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   window.open(`pasarela_pago.html?id=${productoId}`, "_blank");
-  //http://link.mercadopago.com.pe/renewperu
+  // window.location.href = "http://link.mercadopago.com.pe/renewperu"; 
+  
 
   window.addEventListener("message", function (event) {
     if (event.data === "pago_completado") {
